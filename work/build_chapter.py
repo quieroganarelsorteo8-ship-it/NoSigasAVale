@@ -1,0 +1,29 @@
+from pathlib import Path
+root=Path(r'C:/Users/axlta/Documents/Codex/2026-10-07/qui')
+old=(root/'work/prototipo-v1.html').read_text(encoding='utf-8-sig')
+style=old.split('<style>')[1].split('</style>')[0]
+helpers=old[old.index('const rect='):old.index('const roomObstacles=')]
+script=(root/'work/chapter.js').read_text(encoding='utf-8').replace('// DRAW_HELPERS',helpers)
+body='''<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La búsqueda de Vale · Capítulo 1</title><style>STYLE
+main{width:min(1080px,100%)}.toolbar{flex-wrap:wrap}.actions{flex-wrap:wrap}.edition{color:#89918e}.overlay{background:linear-gradient(180deg,#050a1280,#050a12d9 60%,#050a12f5)}.overlay h1{font-weight:normal;letter-spacing:5px}.overlay button{margin:5px}.overlay .sub{line-height:1.8}.overlay p{max-width:500px}.overlay [hidden]{display:none}.stage:fullscreen .overlay{font-size:16px}.note{color:#75818a}#continue{color:#d7c7a5;border-color:#95866d}.touch{flex-wrap:wrap}.touch .interact{margin:0;padding:8px;font-size:11px}.overlay .chapter-name{color:#c0c7c0;font-size:12px;letter-spacing:2px;margin-bottom:22px}
+@media(max-width:600px){.overlay{padding:8px}.overlay h1{font-size:22px;line-height:1.1;letter-spacing:3px;margin:8px 0}.overlay .eyebrow{font-size:7px;letter-spacing:2px}.overlay .chapter-name{font-size:9px;margin-bottom:8px;letter-spacing:1px}.overlay p{font-size:10px;line-height:1.4;margin-bottom:8px}.overlay button{padding:8px 10px;margin:3px;font-size:11px;min-width:0}.overlay .sub{font-size:6px;letter-spacing:1px;line-height:1.5;margin-top:8px}}
+
+body{padding:12px}main{width:min(1080px,calc((100dvh - 170px)*1.5),100%)}header{margin-bottom:8px}.brand strong{margin-top:4px}.toolbar{margin-top:8px}.keys{margin-top:8px;line-height:1.5}.note{margin-top:6px;font-size:9px}.actions button{padding:6px 9px}#fullInGame{position:absolute;right:8px;top:30px;z-index:5;padding:5px 8px;background:#101b27d9;color:#bdc8bc;border-color:#485f69;font-size:12px}.stage:fullscreen #fullInGame{top:12px;right:12px}.stage:fullscreen{width:100vw;height:100dvh}.stage:fullscreen canvas{width:min(100vw,150dvh);max-height:100dvh}
+@media(max-width:600px),(pointer:coarse){main{width:100%}.touch{margin-top:8px}.touch .pad{grid-template-columns:repeat(3,36px);gap:3px}.touch button{min-width:36px;min-height:36px}.keys{font-size:9px}.note{display:none}.touch .interact{font-size:10px}.overlay .sub{font-size:6px}}
+</style></head><body><main>
+<header><div class="brand">LA SECCIÓN PROHIBIDA<strong>LA BÚSQUEDA DE VALE</strong></div><div class="edition">CAPÍTULO 01<br>LA HABITACIÓN DE VALE</div></header>
+<div class="stage" id="stage"><canvas id="game" width="480" height="320" tabindex="0" aria-label="La búsqueda de Vale. Flechas o WASD para caminar; E para interactuar; F linterna; rueda zoom; A/D sintonizar; I equipo; Escape pausa."></canvas><button id="fullInGame" aria-label="Pantalla completa" title="Pantalla completa (P)">⛶</button>
+<div class="overlay" id="intro"><div><div class="eyebrow">LA SECCIÓN PROHIBIDA</div><h1>LA BÚSQUEDA<br>DE VALE</h1><div class="chapter-name">01 — LA HABITACIÓN DE VALE</div><p>Es de noche. Vale no contesta.<br>Su habitación sigue cerrada.</p><button id="start">NUEVA PARTIDA</button><button id="continue" hidden>CONTINUAR</button><div class="sub">SONIDO RETRO · PUEDES SILENCIARLO CON EL BOTÓN<br>PROGRESO GUARDADO EN ESTE NAVEGADOR</div></div></div>
+<div class="overlay" id="pause" hidden><div><div class="eyebrow">SEÑAL EN ESPERA</div><h1>PAUSA</h1><p>Flechas / WASD: caminar · Mayús: correr<br>E / Z / Enter: interactuar y avanzar<br>F: linterna · R: cambiar pila · Rueda: zoom · A/D: radio · I: equipo<br>Esc: volver o pausar</p><button id="resume">VOLVER</button><button id="restart">MENÚ PRINCIPAL</button></div></div>
+<div class="overlay" id="complete" hidden><div><div class="eyebrow">CAPÍTULO 01 COMPLETADO</div><h1>LA HABITACIÓN<br>DE VALE</h1><p>Tienes la cámara, la linterna, la radio<br>y las fotografías. Hay una ubicación en el mapa.</p><button id="explore">VER LA CALLE</button><button id="replay">REPETIR CAPÍTULO</button><div class="sub">LA ÚLTIMA RUTA · VISTA PREVIA DEL MAPA<br>LA HISTORIA DEL CAPÍTULO 02 AÚN NO ESTÁ DESARROLLADA</div></div></div>
+</div>
+<div class="toolbar"><div id="location"></div><div class="actions"><button id="sound" aria-pressed="false">Sonido: apagado</button><button id="effects" aria-pressed="false">Efectos: intensos</button><button id="fullscreen">Pantalla completa</button></div></div>
+<div class="keys"><kbd>W A S D</kbd> / <kbd>↑ ↓ ← →</kbd> Caminar &nbsp; <kbd>Mayús</kbd> Correr &nbsp; <kbd>E</kbd> Interactuar &nbsp; <kbd>F</kbd> Linterna &nbsp; <kbd>R</kbd> Pila &nbsp; <kbd>Rueda</kbd> Zoom · <kbd>A / D</kbd> Radio &nbsp; <kbd>I</kbd> Equipo &nbsp; <kbd>P</kbd> Pantalla completa &nbsp; <kbd>Esc</kbd> Pausa</div>
+<div class="touch"><div class="pad"><button data-key="ArrowUp" aria-label="Arriba">↑</button><button data-key="ArrowLeft" aria-label="Izquierda">←</button><button data-key="ArrowDown" aria-label="Abajo">↓</button><button data-key="ArrowRight" aria-label="Derecha">→</button></div><button class="interact" id="touchAction">E · Interactuar</button><button class="interact" id="touchLight">F · Linterna</button><button class="interact" id="touchCamera">Ayuda cámara</button><button class="interact" id="touchBattery">R · Pila</button></div>
+<div class="note">Capítulo 1 jugable · Guardado local automático · Pixel art y sonido originales · Diálogos subtitulados</div><div id="live" aria-live="polite"></div>
+</main><script>SCRIPT</script></body></html>'''
+(root/'outputs/La-busqueda-de-Vale.html').write_text(body.replace('STYLE',style).replace('SCRIPT',script),encoding='utf-8')
+print('Chapter built:',(root/'outputs/La-busqueda-de-Vale.html').stat().st_size,'bytes')
+
