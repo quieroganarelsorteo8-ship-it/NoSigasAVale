@@ -1,0 +1,96 @@
+LA SECCIÓN PROHIBIDA — LA BÚSQUEDA DE VALE
+Capítulo 1 jugable: La habitación de Vale
+
+ABRIR
+Abrir La-busqueda-de-Vale.html en Edge, Chrome o Firefox. Funciona sin instalación ni internet.
+Elegir Nueva partida. El sonido se activa al comenzar; el botón Sonido permite silenciarlo.
+Las voces están subtituladas; esta versión no incluye doblaje.
+
+CONTROLES
+Flechas / WASD: caminar. Mayús: correr.
+E / Z / Enter: interactuar, mostrar todo el texto o avanzar.
+F: encender o apagar la linterna, disponible desde el inicio. R: cambiar la pila.
+Rueda del mouse: acercar y alejar la fotografía del espejo con la cámara. Alternativa: + / −.
+A / D: mover el dial de la radio; mantener la sintonía estable para escuchar la voz.
+I: equipo. Esc: salir del visor o del equipo; pausar durante diálogos y escenas.
+En pantallas táctiles aparecen botones de movimiento, acción, linterna y cámara.
+Interferencia reducida desactiva las distorsiones breves.
+
+GUARDADO
+Guardado automático al recoger objetos, completar interacciones y cambiar de habitación.
+Continuar recupera la partida de este navegador. No se sincroniza entre equipos.
+Nueva partida y Repetir capítulo reinician el capítulo.
+
+RECORRIDO DEL CAPÍTULO
+Tres llamadas a Vale, buzón de voz y entrada a la casa de noche.
+Mateo ya lleva la linterna. Buscar la llave en el recibidor y abrir la habitación de Vale.
+Revisar las cuatro fotografías: calle, edificio, antenas y Vale frente al espejo.
+Recoger la cámara. Volver a la fotografía del espejo, acercar con la rueda hasta descubrir
+la presencia junto a Vale y alejar para revelar al hombre del sombrero.
+Revelación, reacción de Mateo, alteración de luz y aparición en el corredor.
+Encender la radio y sintonizar con A / D. Mantener la señal estable durante 1,2 segundos.
+Conversar con la voz, que todavía no se presenta como Molo.
+Revisar el mapa, recoger el equipo del escritorio y salir al corredor.
+Ruido, mirada hacia atrás, cierre de puerta y líquido negro.
+Capítulo completado y acceso a la vista previa de la calle.
+
+DISEÑO
+Escala adulta para Mateo y mobiliario ajustado a su tamaño.
+Profundidad determinada por los pies y la base física de cada mueble.
+Los libros y accesorios se dibujan junto con su mueble y ocultan al personaje cuando corresponde.
+Colisiones sobre la base de los objetos y movimiento en pasos pequeños para evitar atravesarlos.
+Iluminación ambiental más oscura, suelo legible y linterna direccional.
+Entidad más alta, con extremidades largas, abrigo, sombrero y rostro vacío.
+Su presencia se manifiesta en la fotografía y brevemente en el corredor.
+No persigue ni provoca derrotas en el capítulo 1, conforme al guion.
+
+FUENTE Y ALCANCE
+Adaptación de los Word suministrados: TRANSMEDIA FINAL_ VIDEOJUEGO P1 y
+EL HOMBRE DEL SOMBRERO - Perfil de personaje. No había un PDF adjunto.
+Se conserva el orden del capítulo y los diálogos originales de Vale y de la voz.
+La distribución espacial, las instrucciones y los textos de interacción son adaptación jugable.
+El pixel art y el sonido son originales.
+La calle es una vista previa: la historia del capítulo 2 aún no está desarrollada.
+Esta entrega es para navegador; todavía no es un proyecto de Roblox.
+
+ACTUALIZACIÓN — LINTERNA Y OSCURIDAD
+Mateo comienza con la linterna cargada y una pila de repuesto.
+Cada pila aporta 75 segundos de exploración con la linterna encendida.
+F enciende o apaga. R reemplaza la pila por una nueva: se descarta la carga restante.
+Las pilas no se gastan durante diálogos, fotografías, inventario, escenas ni pausa.
+Hay una pila en el recibidor, dos en cada armario y una en la caja de mantenimiento de la calle.
+Cada escondite se recoge una sola vez y queda registrado en el guardado.
+El círculo de luz personal siempre permanece, incluso con la pila agotada.
+Fuera del haz y del círculo se perciben siluetas oscuras; la luz revela los detalles.
+
+La aparición produce un apagón parcial de un segundo, sin dejar la imagen completamente negra.
+En algunas apariciones se añade una silueta en primer plano durante 0,35 segundos.
+Efectos suaves elimina ese sobresalto y las distorsiones breves.
+P o el botón dentro del juego activa y desactiva la pantalla completa.
+La interfaz se ajusta a la altura de la ventana para evitar desplazarse al jugar en escritorio.
+El escritorio de la calle se sustituyó por un banco; la farola está sobre la acera,
+tiene base sólida y se dibuja por delante o por detrás de Mateo según su posición.
+Estos cambios de batería amplían el guion original según las indicaciones posteriores del proyecto.
+
+ACTUALIZACIÓN — OBJETOS Y SONIDO RETRO
+La batería muestra seis segmentos y el tiempo restante en segundos (75s al cargar).
+Cada segmento representa 12,5 segundos: seis segmentos de 15 sumarían 90 segundos.
+Con 5–6 segmentos es verde; con 3–4, amarilla; con 1–2, roja.
+La carga restante de partidas anteriores se conserva; una pila nueva carga 75 segundos.
+La llave, cámara, radio y fotografías tienen una presentación en primer plano.
+Pulsar E para confirmar y continuar. Las pilas mantienen una interacción breve, sin esa pantalla.
+Los sonidos de objetos, puertas e interferencias usan síntesis de estilo retro.
+El hombre del sombrero tiene ojos rojos, también en su aparición repentina.
+La fotografía de antenas muestra una torre con paneles, estructura metálica y parabólicas.
+Cada 60–120 segundos de exploración activa puede verse un relámpago breve, seguido de trueno.
+El temporizador de tormenta se pausa durante diálogos, escenas y otras pantallas.
+Efectos suaves suprime el destello; el trueno continúa si el sonido está activado.
+ACTUALIZACIÓN — ZOOM Y SINTONÍA
+La fotografía del espejo ocupa casi toda la pantalla cuando tienes la cámara.
+Primero acerca la imagen: al descubrir la pista, aleja por completo para revelar la figura.
+Sus ojos se encienden en rojo y aparece un sobresalto centrado en pantalla.
+Efectos suaves conserva el descubrimiento y omite el sobresalto.
+La radio requiere encontrar la señal con A / D o las flechas izquierda y derecha.
+La interferencia y el visor responden a la cercanía de la frecuencia correcta.
+Esc permite cerrar la sintonización y volver a intentarlo.
+La batería no se consume durante la inspección de fotos ni la sintonización.
