@@ -1,0 +1,9 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "redirects": [
+    {"source": "/La-busqueda-de-Vale.html", "destination": "/", "permanent": false},
+    {"source": "/index.html.html", "destination": "/", "permanent": false}
+  ],
+  "headers": [{"source": "/(.*)", "headers": [{"key": "Cache-Control", "value": "no-cache"}]}]
+}
