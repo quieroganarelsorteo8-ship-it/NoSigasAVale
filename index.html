@@ -690,26 +690,31 @@ function startDemo(map='power'){
  Object.assign(S.flags,{intro4:true,intro5:true,notebook:true,fuses:true,fusesLeft:demoMap==='power'?3:0});
  if(demoMap==='power')addItem('fuse','Tres fusibles para los generadores');
  X.enemy=null;repairPlayerPosition();setCheckpoint();
- if(demoMap==='loop1'){chaseReset();spawnHunter(395,137,46,4);}
+ if(demoMap==='loop1'){chaseReset();spawnHunter(110,137,46,3);}
  for(const id of ['intro','pause','chapterPicker','complete'])$(id).hidden=true;
- updateLocation();canvas.focus();notify(demoMap==='power'?'E: cables · A/D: elegir · E: girar. Llevas tres fusibles.':'Activa los dos cuadros eléctricos · Mantén E · Mayús correr · G flash');
+ updateLocation();canvas.focus();notify(demoMap==='power'?'E: cables · A/D: elegir · E: girar. Llevas tres fusibles.':'Rodea por la derecha · Activa dos cuadros manteniendo E · Mayús correr · G flash');
 }
 function demoMenu(){keys.clear();S.started=false;S.paused=false;S.mode='play';X.enemy=null;S.transition=null;for(const id of ['pause','chapterPicker','complete'])$(id).hidden=true;$('intro').hidden=false;}
 startEpisode=(n)=>startDemo(Number(n)===5?'loop1':'power');
 openEpisodePicker=demoMenu;
 // La compuerta aislada no pertenece a esta demostración del corredor.
 layouts.loop1.objects=layouts.loop1.objects.filter(o=>!['shutter','falseVoice','trailCard'].includes(o.id));
+// La muestra de energía se resuelve entera en esta sala: no hay puertas de ida y vuelta ambiguas.
+layouts.power.objects=layouts.power.objects.filter(o=>o.id!=='backPlant');
+layouts.power.objects.push(lateDesk('receiver',58,226,'Sintonizar el receptor','radio'),passage('leave4',405,265,'Terminar la demostración'));
+const demoRechargeCamera=rechargeCamera;
+rechargeCamera=function(){if(L.trial&&S.map==='power'&&S.mode==='play'&&!S.paused&&Math.hypot(S.x-85,S.y-256)<90){S.flags.cameraEnergy=Math.max(25,S.flags.cameraEnergy||0);sound('battery');save();notify('Carga de emergencia del receptor · G: flash');return;}demoRechargeCamera();};
 const chase={channel:null,hold:0,gate:0,time:0,burst:false};
 function chaseReset(){Object.assign(chase,{channel:null,hold:0,gate:0,time:0,burst:false});}
 function chaseRelay(id,x,y,n){return object(id,x-12,y-10,24,10,()=>{rect(x-12,y-25,24,25,'#3a5156');rect(x-9,y-22,18,16,'#182c37');ellipse(x,y-14,3,3,S.flags[id]?'#a2c58f':'#cb795e');text(String(n),x,y-34,'#c5c9a3',8,'center')},{target:{x,y:y+16},label:'Mantén E: cuadro '+n});}
 function chaseRack(id,x,y,w,h){return object(id,x,y,w,h,()=>{rect(x,y-17,w,h+17,'#283e48');rect(x+2,y-15,w-4,4,'#7d8b81');for(let i=5;i<w-8;i+=17){rect(x+i,y-8,12,h+3,'#4f605c');rect(x+i+2,y-5,8,3,'#8b9178');}rect(x,y+h-3,w,3,'#152a35');});}
-layouts.loop1.objects=[passage('routeLeft',74,122,'Abrir la salida'),chaseRelay('chaseRelay1',390,123,1),chaseRelay('chaseRelay2',77,223,2),chaseRack('rackNorth',158,157,122,17),chaseRack('rackEast',309,204,32,43),chaseRack('rackSouth',152,233,84,17),cabinet('cellLoop1',366,232)];
+layouts.loop1.objects=[passage('routeLeft',74,122,'Abrir la salida'),chaseRelay('chaseRelay1',390,123,1),chaseRelay('chaseRelay2',77,223,2),chaseRack('rackNorth',158,142,122,17),chaseRack('rackDivider',38,184,260,18),chaseRack('crateUpper',313,137,28,20),chaseRack('rackEast',309,204,32,43),chaseRack('rackSouth',152,233,84,17),cabinet('cellLoop1',366,232)];
 const chaseBackground=laterBackground;
 laterBackground=function(){if(S.map!=='loop1')return chaseBackground();baseRoom(38,105,404,180);doorDraw(59,54,false,chase.gate>=10);text('SALIDA',74,44,chase.gate>=10?'#b6d89a':'#c29576',8,'center');for(let x=142;x<340;x+=62){windowArt(x,57,36,32);}line(390,72,390,105,'#698179',3);text('DISTRIBUCIÓN ELÉCTRICA',329,45,'#8eaaa3',7,'center');for(let y=119;y<280;y+=20)line(39,y,441,y,'#233743',1);return true;};
 const chaseObjective=laterObjective;
-laterObjective=function(){if(S.map!=='loop1')return chaseObjective();const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;if(count<2)return 'CUADROS '+count+'/2 · Mantén E frente a cada cuadro';return chase.gate<10?'El cierre se abre · Sobrevive '+Math.ceil(10-chase.gate)+' s':'SALIDA ABIERTA · Esquina superior izquierda · E';};
+laterObjective=function(){if(S.map==='power'&&S.flags.gen1&&S.flags.gen2&&S.flags.gen3)return S.flags.flashLearned?'Prueba completada · Salida abajo a la derecha':L.trial?'G: flash · T: carga de emergencia junto al receptor':'Receptor abajo a la izquierda · Acércate y pulsa E';if(S.map!=='loop1')return chaseObjective();const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;if(count<2)return 'CUADROS '+count+'/2 · Mantén E frente a cada cuadro';return chase.gate<10?'El cierre se abre · Sobrevive '+Math.ceil(10-chase.gate)+' s':'SALIDA ABIERTA · Esquina superior izquierda · E';};
 const chaseResume=resumeLater;
-resumeLater=function(){chaseResume();if(S.map==='loop1'){chaseReset();spawnHunter(395,137,46,4);}};
+resumeLater=function(){chaseResume();if(S.map==='loop1'){chaseReset();spawnHunter(110,137,46,3);}};
 const chaseUpdate=update;
 update=function(dt){
  if(S.started&&!S.paused&&!S.transition&&S.mode==='play'&&S.map==='loop1'){
@@ -724,7 +729,11 @@ update=function(dt){
  chaseUpdate(dt);
 };
 const chaseDraw=laterDraw;
-laterDraw=function(){const result=chaseDraw();if(S.map==='loop1'&&S.mode==='play'){
+laterDraw=function(){const result=chaseDraw();if(S.map==='power'&&S.mode==='play'){
+ text('RECEPTOR',85,205,S.flags.gen1&&S.flags.gen2&&S.flags.gen3?'#d7d9af':'#93a59c',7,'center');
+ if(S.flags.gen1&&S.flags.gen2&&S.flags.gen3&&!S.flags.flashLearned){frame(57,211,57,30,'#a1bc8b');text('E',85,249,'#d7d9af',8,'center');}
+ if(S.flags.flashLearned)text('SALIDA ↓',405,253,'#bad0a1',7,'center');
+ }if(S.map==='loop1'&&S.mode==='play'){
  rect(120,94,240,19,'#091722ee');const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;
  text(count<2?'CUADROS '+count+'/2 · 1: ARRIBA DERECHA / 2: ABAJO IZQUIERDA':chase.gate<10?'ABRIENDO SALIDA · '+Math.ceil(10-chase.gate)+' s':'SALIDA ABIERTA · ARRIBA IZQUIERDA',240,100,'#cbd1af',6,'center');
  if(chase.channel){rect(185,270,110,5,'#243c45');rect(185,270,110*Math.min(1,chase.hold/1.4),5,'#c7b27e');text('MANTÉN E',240,259,'#dfd4af',7,'center');}
@@ -737,11 +746,12 @@ inspect=function(o){
   if(chase.gate<10){notify('El cierre está subiendo. Sobrevive '+Math.ceil(10-chase.gate)+' segundos.');return;}
   X.enemy=null;say([['','Has escapado de la entidad. Demostración completada.']],demoMenu);return;
  }
- if(S.map==='plant'&&o.id==='leave4'){
+ if(['power','plant'].includes(S.map)&&o.id==='leave4'){
   if(!S.flags.flashLearned){notify(objective());return;}
   say([['','La señal está restaurada. Demostración completada.']],demoMenu);return;
  }
  demoInspect(o);
+ if(S.map==='power'&&['gen1','gen2','gen3'].includes(o.id)&&S.flags.gen1&&S.flags.gen2&&S.flags.gen3)notify('Energía restaurada · Receptor abajo a la izquierda · E para sintonizar');
 };
 // Los giros de 90 y 270 grados conectan ambos extremos del cable.
 const demoLaterAct=laterAct;
