@@ -690,19 +690,51 @@ function startDemo(map='power'){
  Object.assign(S.flags,{intro4:true,intro5:true,notebook:true,fuses:true,fusesLeft:demoMap==='power'?3:0});
  if(demoMap==='power')addItem('fuse','Tres fusibles para los generadores');
  X.enemy=null;repairPlayerPosition();setCheckpoint();
- if(demoMap==='loop1')spawnHunter(395,137,34,3);
+ if(demoMap==='loop1'){chaseReset();spawnHunter(395,137,46,4);}
  for(const id of ['intro','pause','chapterPicker','complete'])$(id).hidden=true;
- updateLocation();canvas.focus();notify(demoMap==='power'?'E: cables · A/D: elegir · E: girar. Llevas tres fusibles.':'Escapa por el pasaje izquierdo · Mayús: correr · G: flash');
+ updateLocation();canvas.focus();notify(demoMap==='power'?'E: cables · A/D: elegir · E: girar. Llevas tres fusibles.':'Activa los dos cuadros eléctricos · Mantén E · Mayús correr · G flash');
 }
 function demoMenu(){keys.clear();S.started=false;S.paused=false;S.mode='play';X.enemy=null;S.transition=null;for(const id of ['pause','chapterPicker','complete'])$(id).hidden=true;$('intro').hidden=false;}
 startEpisode=(n)=>startDemo(Number(n)===5?'loop1':'power');
 openEpisodePicker=demoMenu;
 // La compuerta aislada no pertenece a esta demostración del corredor.
 layouts.loop1.objects=layouts.loop1.objects.filter(o=>!['shutter','falseVoice','trailCard'].includes(o.id));
+const chase={channel:null,hold:0,gate:0,time:0,burst:false};
+function chaseReset(){Object.assign(chase,{channel:null,hold:0,gate:0,time:0,burst:false});}
+function chaseRelay(id,x,y,n){return object(id,x-12,y-10,24,10,()=>{rect(x-12,y-25,24,25,'#3a5156');rect(x-9,y-22,18,16,'#182c37');ellipse(x,y-14,3,3,S.flags[id]?'#a2c58f':'#cb795e');text(String(n),x,y-34,'#c5c9a3',8,'center')},{target:{x,y:y+16},label:'Mantén E: cuadro '+n});}
+function chaseRack(id,x,y,w,h){return object(id,x,y,w,h,()=>{rect(x,y-17,w,h+17,'#283e48');rect(x+2,y-15,w-4,4,'#7d8b81');for(let i=5;i<w-8;i+=17){rect(x+i,y-8,12,h+3,'#4f605c');rect(x+i+2,y-5,8,3,'#8b9178');}rect(x,y+h-3,w,3,'#152a35');});}
+layouts.loop1.objects=[passage('routeLeft',74,122,'Abrir la salida'),chaseRelay('chaseRelay1',390,123,1),chaseRelay('chaseRelay2',77,223,2),chaseRack('rackNorth',158,157,122,17),chaseRack('rackEast',309,204,32,43),chaseRack('rackSouth',152,233,84,17),cabinet('cellLoop1',366,232)];
+const chaseBackground=laterBackground;
+laterBackground=function(){if(S.map!=='loop1')return chaseBackground();baseRoom(38,105,404,180);doorDraw(59,54,false,chase.gate>=10);text('SALIDA',74,44,chase.gate>=10?'#b6d89a':'#c29576',8,'center');for(let x=142;x<340;x+=62){windowArt(x,57,36,32);}line(390,72,390,105,'#698179',3);text('DISTRIBUCIÓN ELÉCTRICA',329,45,'#8eaaa3',7,'center');for(let y=119;y<280;y+=20)line(39,y,441,y,'#233743',1);return true;};
+const chaseObjective=laterObjective;
+laterObjective=function(){if(S.map!=='loop1')return chaseObjective();const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;if(count<2)return 'CUADROS '+count+'/2 · Mantén E frente a cada cuadro';return chase.gate<10?'El cierre se abre · Sobrevive '+Math.ceil(10-chase.gate)+' s':'SALIDA ABIERTA · Esquina superior izquierda · E';};
+const chaseResume=resumeLater;
+resumeLater=function(){chaseResume();if(S.map==='loop1'){chaseReset();spawnHunter(395,137,46,4);}};
+const chaseUpdate=update;
+update=function(dt){
+ if(S.started&&!S.paused&&!S.transition&&S.mode==='play'&&S.map==='loop1'){
+  chase.time+=dt;const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;
+  if(count===2)chase.gate=Math.min(10,chase.gate+dt);
+  if(chase.channel){const o=layouts.loop1.objects.find(o=>o.id===chase.channel);if(keys.has('e')&&Math.hypot(S.x-o.target.x,S.y-o.target.y)<24){chase.hold+=dt;if(chase.hold>=1.4){S.flags[o.id]=true;chase.channel=null;chase.hold=0;sound('switch');save();notify(count===0?'Un cuadro activado. Busca el otro.':'Ambos cuadros activos. El cierre tarda 10 segundos. ¡Muévete!');}}else{chase.channel=null;chase.hold=0;}}
+  const phase=chase.time%12,burst=phase>=9;
+  if(phase>=7&&phase<9&&!chase.burst){chase.burst=true;sound('dread');notify('Los pasos aceleran... ¡prepárate para correr!');}
+  if(phase<7)chase.burst=false;
+  if(X.enemy)X.enemy.speed=burst?80:46+count*7;
+ }
+ chaseUpdate(dt);
+};
+const chaseDraw=laterDraw;
+laterDraw=function(){const result=chaseDraw();if(S.map==='loop1'&&S.mode==='play'){
+ rect(120,94,240,19,'#091722ee');const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;
+ text(count<2?'CUADROS '+count+'/2 · 1: ARRIBA DERECHA / 2: ABAJO IZQUIERDA':chase.gate<10?'ABRIENDO SALIDA · '+Math.ceil(10-chase.gate)+' s':'SALIDA ABIERTA · ARRIBA IZQUIERDA',240,100,'#cbd1af',6,'center');
+ if(chase.channel){rect(185,270,110,5,'#243c45');rect(185,270,110*Math.min(1,chase.hold/1.4),5,'#c7b27e');text('MANTÉN E',240,259,'#dfd4af',7,'center');}
+ }return result;};
 const demoInspect=inspect;
 inspect=function(o){
+ if(S.map==='loop1'&&o.id.startsWith('chaseRelay')){if(S.flags[o.id])notify('Este cuadro ya está activo.');else if(chase.channel!==o.id){chase.channel=o.id;chase.hold=0;}return;}
  if(S.map==='loop1'&&['routeLeft','routeRight'].includes(o.id)){
-  if(o.id==='routeRight'){notify('La interferencia viene del pasaje izquierdo.');return;}
+  if(!S.flags.chaseRelay1||!S.flags.chaseRelay2){notify('La salida no tiene energía. Activa los dos cuadros eléctricos.');return;}
+  if(chase.gate<10){notify('El cierre está subiendo. Sobrevive '+Math.ceil(10-chase.gate)+' segundos.');return;}
   X.enemy=null;say([['','Has escapado de la entidad. Demostración completada.']],demoMenu);return;
  }
  if(S.map==='plant'&&o.id==='leave4'){
