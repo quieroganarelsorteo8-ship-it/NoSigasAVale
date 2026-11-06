@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>La búsqueda de Vale · Demo</title><style>
+<title>La búsqueda de Vale · Capítulos 1–10</title><style>
 *{box-sizing:border-box}body{margin:0;background:#080b10;color:#d2d8dc;font-family:Consolas,'Courier New',monospace;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}main{width:min(1040px,100%)}header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}.brand{font-size:11px;letter-spacing:3px;color:#92acae}.brand strong{display:block;color:#e9e4d6;font-size:18px;letter-spacing:2px;margin-top:8px}.edition{font-size:10px;color:#778992;letter-spacing:2px;text-align:right;line-height:1.8}.stage{position:relative;border:1px solid #38444e;background:#000;box-shadow:0 20px 80px #0009}canvas{display:block;width:100%;aspect-ratio:3/2;image-rendering:pixelated;outline:none}.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#070c1480,#070b12c9 65%,#070b12f5);text-align:center;padding:20px}.overlay[hidden]{display:none}.eyebrow{font-size:11px;color:#9eb8b9;letter-spacing:5px}.overlay h1{font-size:clamp(27px,4.7vw,54px);line-height:1.1;letter-spacing:3px;color:#eee8d5;margin:20px 0;text-shadow:3px 3px #101828}.overlay p{color:#aebfc2;font-size:13px;line-height:1.8;max-width:450px;margin:0 auto 24px}button{font:inherit;color:#d4e3df;background:#162429;border:1px solid #577071;padding:11px 18px;cursor:pointer}button:hover,button:focus-visible{background:#293c40;outline:2px solid #b4d7cf;outline-offset:3px}#start{background:#c9d9cb;color:#152322;font-weight:bold;letter-spacing:2px;min-width:210px}.sub{font-size:10px;letter-spacing:2px;color:#92a1a8;margin-top:25px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}#location{font-size:12px;color:#bac9c7}#location small{color:#687f89;margin-right:12px}.actions{display:flex;gap:8px}.actions button{font-size:11px;padding:8px 11px}.keys{color:#82939b;font-size:11px;line-height:2;margin-top:18px}kbd{color:#d9dfd8;border:1px solid #39484f;padding:2px 5px;font:inherit}.note{font-size:10px;color:#586c78;margin-top:11px;line-height:1.7}.touch{display:none;gap:8px;justify-content:center;margin-top:15px;touch-action:none}.touch button{min-width:45px;min-height:44px;user-select:none}.touch .pad{display:grid;grid-template-columns:repeat(3,44px);gap:4px}.touch button[data-key=ArrowUp]{grid-column:2}.touch button[data-key=ArrowLeft]{grid-column:1}.touch .interact{margin-left:14px;align-self:center}#live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}@media(pointer:coarse){.touch{display:flex}}@media(max-width:600px){body{padding:12px}.edition{display:none}.brand strong{font-size:14px}.toolbar{align-items:flex-start}.actions{gap:4px}.actions button{padding:7px;font-size:10px}.keys{font-size:10px}.overlay p{font-size:11px;margin-bottom:12px}.overlay h1{margin:12px 0}.sub{margin-top:16px;font-size:8px}.eyebrow{font-size:9px}}
 .stage:fullscreen{display:flex;align-items:center;justify-content:center;border:0;background:#000}.stage:fullscreen canvas{width:min(100vw,150vh);height:auto;max-height:100vh;object-fit:contain}
+
+#wardrobe[hidden],#wardrobe [hidden],#wardAchievement[hidden]{display:none!important}
+#wardrobe{position:absolute;inset:34px 0 0;z-index:12;overflow:auto;background:#0a151e;color:#e0e3d2;padding:clamp(8px,2.4vw,25px);font:13px Consolas,monospace;box-sizing:border-box}
+#wardrobe .ward-head,#wardrobe .ward-wallet{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#wardrobe .ward-head{border-bottom:1px solid #465c62;padding-bottom:8px;margin-bottom:8px}
+#wardrobe h2,#wardrobe h3{margin:0;color:#eee8cc;font-size:clamp(16px,2vw,24px);letter-spacing:1px}
+#wardrobe button{font-family:inherit;font-size:inherit;padding:7px 10px;background:#192e37;color:#d9e3d5;border:1px solid #536d70;cursor:pointer}
+#wardrobe button[aria-pressed=true]{border-color:#d2bb88;background:#344545}
+#wardrobe button:disabled{opacity:.65;cursor:default}
+#wardBalance{color:#dbc291}#wardTabs,#wardPacks{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+.ward-layout{display:grid;grid-template-columns:minmax(90px,32%) auto;gap:12px}
+.ward-fitting{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#101e29;border:1px solid #384d58;padding:6px}
+#wardrobe canvas#wardPreview{width:100%;height:auto;max-width:220px;aspect-ratio:88/80;image-rendering:pixelated;max-height:none}
+#wardItems{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+#wardItems button{text-align:left}#wardItems small{display:block;color:#b2bdb1;margin-top:2px}
+#wardrobe #wardAction,#wardrobe #wardPay{margin:8px 0;background:#c2c6a5;color:#16242a}
+#wardStatus{color:#cfbf98;min-height:1em;margin:6px 0}
+#wardAchievement{position:absolute;right:8px;top:40px;z-index:15;max-width:80%;padding:9px 12px;color:#f0e4bd;background:#25383c;border:1px solid #b29a6c;font:12px Consolas,monospace;pointer-events:none}
+.stage:has(#wardrobe:not([hidden])) #touchControls{display:none!important}
+@media(max-width:580px),(max-height:550px){#wardrobe{padding:7px;font-size:11px}.ward-layout{gap:6px}#wardrobe button{padding:5px}#wardTabs,#wardPacks{margin:5px 0}}
 
 main{width:min(1080px,100%)}.toolbar{flex-wrap:wrap}.actions{flex-wrap:wrap}.edition{color:#89918e}.overlay{background:linear-gradient(180deg,#050a1280,#050a12d9 60%,#050a12f5)}.overlay h1{font-weight:normal;letter-spacing:5px}.overlay button{margin:5px}.overlay .sub{line-height:1.8}.overlay p{max-width:500px}.overlay [hidden]{display:none}.stage:fullscreen .overlay{font-size:16px}.note{color:#75818a}#continue{color:#d7c7a5;border-color:#95866d}.touch{flex-wrap:wrap}.touch .interact{margin:0;padding:8px;font-size:11px}.overlay .chapter-name{color:#c0c7c0;font-size:12px;letter-spacing:2px;margin-bottom:22px}
 @media(max-width:600px){.overlay{padding:8px}.overlay h1{font-size:22px;line-height:1.1;letter-spacing:3px;margin:8px 0}.overlay .eyebrow{font-size:7px;letter-spacing:2px}.overlay .chapter-name{font-size:9px;margin-bottom:8px;letter-spacing:1px}.overlay p{font-size:10px;line-height:1.4;margin-bottom:8px}.overlay button{padding:8px 10px;margin:3px;font-size:11px;min-width:0}.overlay .sub{font-size:6px;letter-spacing:1px;line-height:1.5;margin-top:8px}}
@@ -13,19 +33,36 @@ body{padding:12px}main{width:min(1080px,calc((100dvh - 170px)*1.5),100%)}header{
 .stage{padding-top:34px}.stage-tools{position:absolute;top:0;left:0;right:0;height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;background:#101b24;border-bottom:1px solid #3a5059}.stage-tools span{font-size:10px;color:#a8bdb5}#fullInGame,.stage:fullscreen #fullInGame{position:static;padding:4px 8px;font-size:11px}.overlay{top:34px;overflow-y:auto}.overlay>div{margin:auto}.stage:fullscreen{flex-direction:column;padding-top:34px}.stage:fullscreen canvas{width:min(100vw,calc((100dvh - 34px)*1.5));max-height:calc(100dvh - 34px)}main{width:min(1080px,calc((100dvh - 210px)*1.5),100%)}@media(max-width:600px),(pointer:coarse){main{width:100%}}@media(max-height:600px){body{align-items:flex-start}.overlay h1{font-size:24px;margin:8px 0}.overlay .sub{margin-top:8px}.overlay p{margin-bottom:8px}.overlay button{padding:7px 9px}}
 .touch[hidden]{display:none!important}.touch:not([hidden]){display:flex}.touch{position:relative;z-index:9;margin:0;padding:8px;background:#101b24;width:100%;flex-shrink:0;gap:8px}.touch-actions{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;flex:1}.touch button{font-size:11px;min-width:32px;min-height:36px;padding:4px;touch-action:none}.touch small{width:100%;font-size:10px;color:#b8c8bd;text-align:center}.touch button[aria-pressed=true]{background:#5b736b}.stage-tools button{padding:4px 8px;font-size:11px}.stage:has(.touch:not([hidden])) .overlay{bottom:154px}.stage:fullscreen:has(.touch:not([hidden])) canvas{width:min(100vw,calc((100dvh - 195px)*1.5));max-height:calc(100dvh - 195px)}@media(max-width:600px){.touch-actions{grid-template-columns:repeat(4,minmax(0,1fr))}.touch small{font-size:8px}}@media(max-height:450px){.touch{padding:3px;gap:3px}.touch button{min-height:30px}.touch small{display:none}}
 </style></head><body><main>
-<header><div class="brand">LA SECCIÓN PROHIBIDA<strong>LA BÚSQUEDA DE VALE</strong></div><div class="edition">DEMOSTRACIÓN<br>DOS ESCENAS JUGABLES</div></header>
+<header><div class="brand">LA SECCIÓN PROHIBIDA<strong>LA BÚSQUEDA DE VALE</strong></div><div class="edition">CAPÍTULOS 01–10<br>LA BÚSQUEDA CONTINÚA</div></header>
 <div class="stage" id="stage"><canvas id="game" width="480" height="320" tabindex="0" aria-label="La búsqueda de Vale. Flechas o WASD para caminar; E para interactuar; F linterna; rueda zoom; A/D sintonizar; Q equipo; Escape pausa."></canvas><div class="stage-tools"><button id="touchToggle" aria-controls="touchControls" aria-expanded="false">Controles táctiles</button><button id="fullInGame" aria-label="Pantalla completa" title="Pantalla completa (P)">⛶ Pantalla completa · P</button></div>
-<div class="overlay" id="intro"><div><div class="eyebrow">LA SECCIÓN PROHIBIDA</div><h1>LA BÚSQUEDA<br>DE VALE</h1><div class="chapter-name">ELIGE UNA ESCENA</div><p>Entra directamente a la sala de energía o escapa de la entidad.<br>Ambas escenas comienzan con tres pilas de repuesto.</p><button id="start">CABLES Y GENERADORES</button><button id="continue" hidden>CONTINUAR</button><button id="chooseEpisode">PERSECUCIÓN</button><div class="sub">SONIDO RETRO · PUEDES SILENCIARLO CON EL BOTÓN<br>PROGRESO GUARDADO EN ESTE NAVEGADOR</div></div></div>
+<div class="overlay" id="intro"><div><div class="eyebrow">LA SECCIÓN PROHIBIDA</div><h1>LA BÚSQUEDA<br>DE VALE</h1><div class="chapter-name">01–10 — LA BÚSQUEDA DE VALE</div><p>Es de noche. Vale no contesta.<br>Su habitación sigue cerrada.</p><button id="start">NUEVA PARTIDA</button><button id="continue" hidden>CONTINUAR</button><button id="chooseEpisode">ELEGIR EPISODIO</button><div class="sub">SONIDO RETRO · PUEDES SILENCIARLO CON EL BOTÓN<br>PROGRESO GUARDADO EN ESTE NAVEGADOR</div></div></div>
 <div class="overlay" id="chapterPicker" hidden role="dialog" aria-modal="true" aria-labelledby="pickerTitle"><div><div class="eyebrow">ACCESO LIBRE · VERSIÓN DE GRABACIÓN</div><h2 id="pickerTitle">ELEGIR EPISODIO</h2><label for="episodeNumber">Episodio</label><select id="episodeNumber"><option value="1">01 · La habitación de Vale</option><option value="2">02 · La última ruta</option><option value="3">03 · El edificio</option><option value="4">04 · La frecuencia / Bajo la frecuencia</option><option value="5">05 · No mires atrás</option><option value="6">06 · Los archivos</option><option value="7">07 · Los ecos de Vale</option><option value="8">08 · Vale</option><option value="9">09 · Déjala ir</option><option value="10">10 · La última salida</option></select><div id="episodeRouteGroup" hidden><label for="episodeRoute">Ruta elegida en la habitación 407</label><select id="episodeRoute"><option value="A">A · Salir por la escalera y escuchar a Molo</option><option id="routeB" value="B">B · Abrir la segunda puerta</option><option id="routeB1" value="B1" hidden disabled>B1 · Seguir a Vale sin los archivos</option><option id="routeB2" value="B2" hidden disabled>B2 · Conservar los archivos</option></select></div><p class="picker-help">Todos los episodios están disponibles. Empezarás con el equipo y las pistas anteriores preparados. Este inicio se guardará como tu partida actual.</p><button id="launchEpisode">JUGAR EPISODIO</button><button id="closeEpisodePicker">VOLVER</button></div></div>
-<div class="overlay" id="pause" hidden><div><div class="eyebrow">SEÑAL EN ESPERA</div><h1>PAUSA</h1><p>Flechas / WASD: caminar · Mayús: correr<br>E / Z / Enter: interactuar y avanzar<br>F: linterna · R: cambiar pila · C: visor · G: flash · T: pila de cámara<br>Rueda: zoom · A/D: radio / CCTV · Q: equipo<br>Esc: volver o pausar</p><button id="resume">VOLVER</button><button id="restart">MENÚ PRINCIPAL</button><button id="chooseEpisodePause">ELEGIR EPISODIO</button></div></div>
+<div class="overlay" id="pause" hidden><div><div class="eyebrow">SEÑAL EN ESPERA</div><h1>PAUSA</h1><p>Flechas / WASD: caminar · Mayús: correr<br>E / Z / Enter: interactuar y avanzar<br>F: linterna · R: cambiar pila · C: visor · G: flash · T: pila de cámara<br>Rueda: zoom · A/D: radio / CCTV · Q: equipo<br>Esc: volver o pausar</p><button id="resume">VOLVER</button><button id="openWardrobe">TIENDA · VESTUARIO</button><button id="restart">MENÚ PRINCIPAL</button><button id="chooseEpisodePause">ELEGIR EPISODIO</button></div></div>
 <div class="overlay" id="complete" hidden><div><div class="eyebrow">CAPÍTULO 01 COMPLETADO</div><h1>LA HABITACIÓN<br>DE VALE</h1><p>Tienes la cámara, la linterna, la radio<br>y las fotografías. Hay una ubicación en el mapa.</p><button id="explore">CONTINUAR AL NIVEL 2</button><button id="replay">REPETIR CAPÍTULO</button><div class="sub">LA ÚLTIMA RUTA · INVESTIGA LAS CALLES DE LIMA</div></div></div>
+<section id="wardrobe" hidden role="dialog" aria-modal="true" aria-labelledby="wardrobeTitle">
+  <header class="ward-head"><h2 id="wardrobeTitle">Vestuario de Mateo</h2><button id="wardBack" type="button">Volver a pausa</button></header>
+  <div class="ward-wallet"><span>Saldo <strong id="wardBalance"></strong></span><button id="wardCoins">Comprar monedas</button></div>
+  <div id="wardCatalog">
+    <nav id="wardTabs" aria-label="Categorías"></nav>
+    <div class="ward-layout"><div class="ward-fitting">
+      <canvas id="wardPreview" width="88" height="80" aria-label="Vista previa de Mateo"></canvas>
+      <button id="wardRotate">Girar ↻</button>
+    </div><div><div id="wardItems" aria-label="Prendas"></div><button id="wardAction"></button></div></div>
+  </div>
+  <div id="wardCheckout" hidden><h3>Comprar monedas</h3><p>Pago simulado. No se realizará ningún cobro.</p>
+    <div id="wardPacks"></div><p id="wardOrder"></p><button id="wardPay">Pagar y recibir monedas</button>
+    <button id="wardCancel">Volver al vestuario</button>
+  </div>
+  <p id="wardStatus" role="status"></p>
+</section>
+<aside id="wardAchievement" role="status" hidden>Logro obtenido: Le robaste el Vestido a Vale</aside>
 <div class="touch" id="touchControls" hidden aria-label="Controles táctiles"><div class="pad"><button data-key="ArrowUp" aria-label="Arriba">↑</button><button data-key="ArrowLeft" aria-label="Izquierda / sintonizar hacia la izquierda">←</button><button data-key="ArrowDown" aria-label="Abajo">↓</button><button data-key="ArrowRight" aria-label="Derecha / sintonizar hacia la derecha">→</button></div><div class="touch-actions"><button data-game-key="e">E · Acción</button><button data-game-key="Shift">Correr</button><button data-game-key="f">Linterna</button><button data-game-key="r">Pila luz</button><button data-game-key="c">Visor</button><button data-game-key="g">Flash</button><button data-game-key="t">Pila cámara</button><button data-game-key="q">Equipo</button><button data-game-key="+">Zoom +</button><button data-game-key="-">Zoom −</button><button data-game-key="Escape">Volver / pausa</button></div><small>← / →: caminar, fotos, conexiones y radio. Mantén para sintonizar. Equipo se cierra con Equipo.</small></div></div>
 <div class="toolbar"><div id="location"></div><div class="actions"><button id="sound" aria-pressed="false">Sonido: apagado</button><button id="effects" aria-pressed="false">Efectos: intensos</button><button id="fullscreen">Pantalla completa</button></div></div>
 <div class="keys"><kbd>W A S D</kbd> / <kbd>↑ ↓ ← →</kbd> Caminar &nbsp; <kbd>Mayús</kbd> Correr &nbsp; <kbd>E</kbd> Interactuar &nbsp; <kbd>F</kbd> Linterna &nbsp; <kbd>R</kbd> Pila &nbsp; <kbd>C</kbd> Visor &nbsp; <kbd>G</kbd> Flash &nbsp; <kbd>T</kbd> Pila de cámara &nbsp; <kbd>Rueda</kbd> Zoom · <kbd>A / D</kbd> Radio &nbsp; <kbd>Q</kbd> Equipo &nbsp; <kbd>P</kbd> Pantalla completa &nbsp; <kbd>Esc</kbd> Pausa</div>
-<div class="note">Demo · Sala de energía, receptor y persecución · Guardado local automático · Pixel art y sonido originales · Diálogos subtitulados</div><div id="live" aria-live="polite"></div>
+<div class="note">Capítulos 1–10 jugables · Guardado local automático · Pixel art y sonido originales · Diálogos subtitulados</div><div id="live" aria-live="polite"></div>
 </main><script>'use strict';
 const canvas=document.getElementById('game'), c=canvas.getContext('2d');c.imageSmoothingEnabled=false;
-const $=id=>document.getElementById(id),W=480,H=320,SAVE='vale-demo-save-v1';
+const $=id=>document.getElementById(id),W=480,H=320,SAVE='vale-chapter1-v2';
 const BATTERY_SECONDS=30;
 const S={map:'hall',x:219,y:237,dir:'up',time:0,walk:0,started:false,paused:false,mode:'play',flags:{},inventory:[],dialog:null,photo:0,analysis:0,scene:null,transition:null,flash:false,sound:false,reduce:false,toast:'',toastTime:0,battery:BATTERY_SECONDS,spares:1,saveTick:0,item:null,weatherWait:60+Math.random()*60,lightning:0,thunderWait:0};
 const keys=new Set();let previous=0,audio=null,master=null,stepClock=0,saveAvailable=false;
@@ -57,20 +94,93 @@ function shadowMan(x,y,scale=1){c.save();c.translate(x,y);c.scale(scale,scale);e
 
 function windowArt(x,y,w,h){frame(x,y,w,h,'#6d7a83');rect(x+4,y+4,w-8,h-8,'#233743');c.save();c.beginPath();c.rect(x+4,y+4,w-8,h-8);c.clip();for(let i=0;i<Math.ceil(w/9);i++){let bh=8+noise(i,5)*14;rect(x+5+i*9,y+h-bh-5,7,bh,'#152331');rect(x+7+i*9,y+h-bh,2,2,'#657c78')}rain(x+4,y+4,w-8,h-8);c.restore();rect(x+w/2-1,y+3,2,h-6,'#7d8a90');rect(x+3,y+h/2,w-6,2,'#677c86');rect(x-3,y+h,w+6,3,'#8c8586');rect(x-5,y-2,6,h+3,'#494352');rect(x+w-1,y-2,6,h+3,'#494352');rect(x-3,y,1,h,'#746572')}
 
-function mateo(x,y,scale=1,dir='down',step=0){
- c.save();c.translate(Math.round(x),Math.round(y));c.scale(scale,scale);
- const stride=step?Math.sin(step*7):0;
- rect(-6,-12,5,10,'#343947');rect(1,-12,5,10,'#2a303e');rect(-7,-3+Math.round(stride),6,3,'#111923');rect(1,-3-Math.round(stride),6,3,'#111923');
- rect(-8,-24,16,15,'#172b34');rect(-7,-23,14,13,'#4c6267');rect(-9,-22,3,12,'#354c55');rect(6,-22,3,12,'#293f49');rect(-9,-11,3,3,'#ba9980');rect(6,-11,3,3,'#b18d78');
- rect(-4,-22,8,12,'#555451');rect(-3,-21,5,10,'#8b8471');rect(-6,-22,2,13,'#718080');rect(4,-22,2,13,'#243b46');rect(-7,-10,14,2,'#263846');
- rect(-5,-31,11,10,'#201e29');rect(-6,-29,12,6,'#26232d');rect(-4,-27,9,7,'#c0a18b');rect(-4,-31,10,5,'#292631');rect(-5,-28,3,5,'#292631');rect(-2,-32,6,2,'#38303a');
- if(dir==='up'){rect(-5,-29,11,8,'#292631');rect(-3,-24,7,3,'#343039');rect(-4,-21,9,12,'#465b61');rect(-3,-20,7,9,'#3c5058');line(-4,-20,-4,-10,'#8e8067');line(4,-20,4,-10,'#8e8067')}
- else if(dir==='left'){rect(-6,-26,3,4,'#c0a18b');rect(-5,-25,1,1,'#1a2029');rect(2,-27,4,6,'#292631')}
- else if(dir==='right'){rect(4,-26,3,4,'#c0a18b');rect(5,-25,1,1,'#1a2029');rect(-5,-27,4,6,'#292631')}
- else{rect(-4,-27,9,6,'#c4a28a');rect(-4,-28,9,2,'#302832');rect(-4,-27,2,2,'#302832');rect(-3,-25,2,1,'#202630');rect(2,-25,2,1,'#202630');rect(0,-24,1,2,'#9b7567');rect(-1,-21,3,1,'#795c56');rect(-2,-20,4,1,'#b99078')}
- if(S.flags.camera&&dir!=='up'){rect(-3,-15,7,5,'#131e2a');rect(-1,-14,3,3,'#778d90')}
- c.restore();
+// Sprite de 32 píxeles. Las tres vistas comparten nuca, mandíbula y línea de ojos.
+// El perfil izquierdo es el reflejo exacto del derecho.
+const mateoPalette = {
+  o:'#302832', s:'#c6a28a', l:'#d9b69b', m:'#af8978', d:'#956e64',
+  e:'#322b31', h:'#302933', j:'#473842', k:'#59424a'
+};
+const mateoFaces = {
+  down:['....oooo....','..oommssoo..','.omssllllsmo','.omssllllsmo',
+        '.omssllllsmo','.omssllllsmo','omdssllssmdo','.mseesseems.',
+        '..mssslmssm.','..omssdssmo.','...omddmmo..','....ommm....'],
+  side:['....oooo....','..oommmsoo..','.omsssslsmo.','.omsssllsmo.',
+        '.omsssllsmo.','.omsssllsmo.','.ommdsslssm.','.ommdsssesm.',
+        '..omdssssslm','..ommmsssdm.','...ommmddmo.','....ommmm...'],
+  up:['....oooo....','..oommmmoo..','.omssssssmo.','.omsslllssmo',
+      '.omsslllssmo','.omssssssmmo','omdssssssmdo','.omssssssmo.',
+      '..ommmmmmo..','..oommmmmo..','...omddmo...','....ommo....']
+};
+const mateoHair = {
+  down:['....jjjj....','..jjkkjjhh..','.hjjjjjjhhho','.hjjjhhhhhhh',
+        '.hhhhh..hhhh','.hhh.....hhh','..hh......hh','..h.......h.'],
+  side:['....jjjj....','..jjkkjjhh..','.hjjjjjjhhho','.hjjjhhhhhhh',
+        '.hhhhhh...hh','.hhhhh.....h','.hhhh.......','.hh.........','..hh........','..hh........'],
+  up:['....jjjj....','..jjkkjjhh..','.hjjjjjjhhho','.hjjjjjhhhhh',
+      '.hjjjjhhhhhh','.hjjjhhhhhhh','..hhhhhhjhh.','..hhhhhhjhh.','..hhhhhhhh..','...hhhhhh...']
+};
+function paintMateo(ctx,x,y,scale,dir,step,look,hasCamera){
+  ctx.save();ctx.translate(Math.round(x),Math.round(y));ctx.scale(dir==='left'?-scale:scale,scale);
+  const side=dir==='left'||dir==='right', back=dir==='up';
+  const view=side?'side':back?'up':'down';
+  const r=(x,y,w,h,col)=>{ctx.fillStyle=col;ctx.fillRect(x,y,w,h);};
+  const pixels=rows=>rows.forEach((row,y)=>{for(let x=0;x<row.length;x++)if(row[x]!=='.')r(x-6,y-32,1,1,mateoPalette[row[x]]);});
+  const skin='#c6a28a', shade='#a78373', outfit=look.outfit;
+  const bare=outfit==='briefs', dress=outfit==='dress', coat=outfit==='parka', suit=outfit==='suit';
+  const cloth=bare?skin:dress?'#425c91':coat?'#30333c':suit?'#30363f':'#526369';
+  const seam=bare?shade:dress?'#293d62':coat?'#1c222d':suit?'#1c242e':'#344950';
+  const stride=step?Math.round(Math.sin(step*7)):0;
+  function shoe(x,offset){
+    const y=-3+offset;
+    if(look.feet==='barefoot'||look.feet==='slides'){
+      r(x,y-1,4,3,skin);r(x,y+1,5,2,shade);
+      if(look.feet==='slides'){r(x,y+2,6,1,'#c4a140');r(x+1,y,3,2,'#e8c74e');}
+    }else if(look.feet==='redhigh'){
+      r(x,y-2,4,4,'#b44645');r(x+1,y,3,1,'#dbcbb6');r(x,y+1,6,1,'#a83939');r(x,y+2,6,1,'#c9c6b6');
+    }else{
+      r(x,y,5,3,'#17212a');r(x,y+2,6,1,'#101821');
+      if(look.feet==='formal')r(x+2,y,3,1,'#788087');
+    }
+  }
+  for(const [x,delta] of [[side?-3:-6,stride],[side?0:1,-stride]]){
+    r(x,-12,4,10+delta,bare||dress?skin:'#37404c');shoe(x,delta);
+  }
+  const bx=side?-5:-7,bw=side?10:14;
+  r(bx-1,-22,bw+2,13,seam);r(bx,-23,bw,14,cloth);
+  if(bare){
+    if(!back){r(side?1:-4,-20,side?3:8,1,'#d5ae92');r(side?1:-4,-17,3,1,shade);if(!side)r(2,-17,3,1,shade);}
+    r(bx,-12,bw,4,'#45515a');r(bx,-12,bw,1,'#9ea89f');
+  }else if(coat||dress){
+    r(bx-1,-15,bw+2,8,cloth);r(bx-2,-10,bw+4,4,cloth);r(bx-2,-7,bw+4,1,seam);
+    r(side?2:-2,-15,1,8,dress?'#6076a2':'#424651');
+    if(!back){r(-2,-22,4,2,dress?'#8e9ab7':'#191e28');}
+  }else if(suit&&!back){
+    r(side?1:-3,-22,side?3:6,4,'#d7d5c9');r(side?2:-1,-21,2,7,'#a54641');r(side?2:-1,-15,2,1,'#783135');
+  }else if(!suit&&!back){r(-3,-21,side?4:6,10,'#918976');}
+  // La mochila ocupa el volumen posterior. De frente se ven sus dos tiras.
+  if(side||back){
+    const px=side?-8:-5,pw=side?5:10;
+    r(px,-21,pw,13,'#263337');r(px+1,-20,pw-2,10,'#6c6955');r(px+1,-19,pw-2,3,'#87806a');
+    r(px+1,-14,pw-2,4,'#504f44');r(px+2,-15,1,2,'#b09d74');
+  }
+  if(!back){r(side?-1:-6,-22,2,11,'#756e55');if(!side)r(4,-22,2,11,'#756e55');}
+  if(side){r(-1,-21,4,10,cloth);r(0,-12,3,3,skin);}
+  else{r(-9,-21,3,10,seam);r(6,-21,3,10,cloth);r(-9,-11,3,3,shade);r(6,-11,3,3,skin);}
+  if(hasCamera&&!back){r(side?2:-3,-16,side?4:7,4,'#151e28');r(side?4:-1,-15,2,2,'#7d9699');}
+  pixels(mateoFaces[view]);
+  if(look.head!=='bald')pixels(mateoHair[view]);
+  if(look.head==='bowler'){
+    r(-5,-35,10,2,'#32323a');r(-6,-33,12,5,'#24252c');r(-6,-30,12,2,'#49434a');r(-7,-28,14,1,'#24242c');
+  }else if(look.head==='cap'){
+    r(-4,-34,8,1,'#984b4b');r(-5,-33,10,2,'#a44d4a');r(-6,-31,12,3,'#aa4846');
+    if(side)r(2,-29,7,2,'#973c40');else if(!back)r(-6,-29,12,2,'#8c393b');
+  }
+  ctx.restore();
 }
+function mateo(x,y,scale=1,dir='down',step=0){
+  paintMateo(c,x,y,scale,dir,step,wardrobeProfile.equipped,S.flags.camera);
+}
+
 function entity(x,y,scale=1,eyes=false){c.save();c.translate(Math.round(x),Math.round(y));c.scale(scale,scale);
  ellipse(0,1,13,3,'#03070c');poly([[-4,-48],[4,-48],[5,-41],[10,-36],[8,-18],[11,-3],[3,-2],[1,-16],[-2,-2],[-11,-3],[-8,-22],[-10,-36],[-5,-41]],'#05070d');
  poly([[-9,-36],[-13,-31],[-15,-10],[-12,-8],[-10,-25],[-7,-29]],'#06090f');poly([[8,-36],[12,-29],[13,-10],[10,-8],[9,-24],[6,-30]],'#06090f');
@@ -315,7 +425,7 @@ function resumeSave(){startAudio();resetLater();resetFinal();S.transition=null;S
 function pause(){if(!S.started||S.mode==='complete')return;S.paused=!S.paused;$('pause').hidden=!S.paused;keys.clear();if(!S.paused)canvas.focus()}
 function escape(){if(S.paused){pause();return}if(S.mode==='inventory')return;if(expandedEscape())return;if(S.mode==='photo'&&S.lens?.reveal&&!S.flags.photo)return;if(S.mode==='tuning'){S.mode='play';keys.clear();return;}if(S.mode==='photo'){if(S.photo===3){S.flags.photos=true;save()}S.mode='play';return}if(S.mode==='map'){S.mode='play';return}pause()}
 function toggleFlash(){if(S.mode!=='play')return;if(!S.flags.flashlight){notify('Hay una linterna en el corredor.');return}if(!S.flash&&S.battery<=0){notify('Pila agotada · R para recargar');return}S.flash=!S.flash;sound('switch');save()}
-function handleGameKey(e){if(!$('chapterPicker').hidden){if(e.key==='Escape')closeEpisodePicker();return;}if(['BUTTON','INPUT'].includes(e.target.tagName)&&(e.key==='Enter'||e.key===' '))return;let k=e.key.length===1?e.key.toLowerCase():e.key;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(k))e.preventDefault();if(e.repeat&&['e','z','Enter',' ','Escape','f','c','q','g','t','r','p'].includes(k))return;if(k==='Escape'){escape();return}if(k==='p'){toggleFullscreen();return}if(!S.started||S.paused)return;if(expandedKey(k,e))return;if(S.mode==='photo'&&['ArrowLeft','ArrowRight','a','d'].includes(k)){e.preventDefault();if(!e.repeat)changePhoto(k==='ArrowLeft'||k==='a'?-1:1);return}if(['e','z','Enter',' '].includes(k)){act();return}if(k==='r'){recharge();return}if(k==='f'){toggleFlash();return}if(['+','=','-','_'].includes(k)){zoomPhoto(k==='+'||k==='='?.18:-.18);return}if(k==='q'){toggleInventory();return}keys.add(k)}
+function handleGameKey(e){if(shopOpen){handleWardKey(e);return;}if(!$('chapterPicker').hidden){if(e.key==='Escape')closeEpisodePicker();return;}if(['BUTTON','INPUT'].includes(e.target.tagName)&&(e.key==='Enter'||e.key===' '))return;let k=e.key.length===1?e.key.toLowerCase():e.key;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(k))e.preventDefault();if(e.repeat&&['e','z','Enter',' ','Escape','f','c','q','g','t','r','p'].includes(k))return;if(k==='Escape'){escape();return}if(k==='p'){toggleFullscreen();return}if(!S.started||S.paused)return;if(expandedKey(k,e))return;if(S.mode==='photo'&&['ArrowLeft','ArrowRight','a','d'].includes(k)){e.preventDefault();if(!e.repeat)changePhoto(k==='ArrowLeft'||k==='a'?-1:1);return}if(['e','z','Enter',' '].includes(k)){act();return}if(k==='r'){recharge();return}if(k==='f'){toggleFlash();return}if(['+','=','-','_'].includes(k)){zoomPhoto(k==='+'||k==='='?.18:-.18);return}if(k==='q'){toggleInventory();return}keys.add(k)}
 document.addEventListener('keydown',handleGameKey);
 document.addEventListener('keyup',e=>keys.delete(e.key.length===1?e.key.toLowerCase():e.key));window.addEventListener('blur',()=>{keys.clear();if(S.started&&!S.paused&&S.mode!=='complete')pause()});window.addEventListener('pagehide',()=>{if(S.started)save()});
 $('start').onclick=fresh;$('continue').onclick=resumeSave;$('resume').onclick=()=>{S.paused=false;$('pause').hidden=true;canvas.focus()};$('restart').onclick=()=>{S.paused=false;$('pause').hidden=true;S.started=false;$('intro').hidden=false;$('continue').hidden=!saveAvailable;keys.clear()};$('replay').onclick=fresh;$('explore').onclick=startLevel2;
@@ -362,7 +472,7 @@ try{saveAvailable=JSON.parse(localStorage.getItem(SAVE))?.version===2}catch{}$('
 function repairPlayerPosition(){if(canMove(S.x,S.y))return false;const b=layouts[S.map].bounds,ox=Math.max(b.x+6,Math.min(b.x+b.w-6,S.x)),oy=Math.max(b.y+6,Math.min(b.y+b.h-1,S.y));for(let r=0;r<480;r+=4){const candidates=[];for(let d=-r;d<=r;d+=4){candidates.push([ox+d,oy-r],[ox+d,oy+r],[ox-r,oy+d],[ox+r,oy+d])}candidates.sort((a,b)=>Math.hypot(a[0]-ox,a[1]-oy)-Math.hypot(b[0]-ox,b[1]-oy));for(const [x,y] of candidates)if(canMove(x,y)){S.x=x;S.y=y;return true}}return false}
 
 // Levels 2 and 3 extend the same engine, inventory, radio and lighting.
-const CHECKPOINT='vale-demo-checkpoint-v1';
+const CHECKPOINT='vale-safe-v1';
 const X={camera:false,screen:null,danger:0,enemy:null,caught:0,pulse:0,checkpoint:null};
 const mapNames={street:'02 · La última ruta / paradero',alley:'02 · La última ruta / pasaje',facade:'02 · La última ruta / edificio',lobby:'03 · El edificio / recepción',security:'03 · El edificio / seguridad',floor2:'03 · El edificio / segundo piso',floor3:'03 · El edificio / tercer piso',between:'03 · El edificio / entre pisos',r407:'03 · El edificio / habitación 407'};
 const point=(id,x,y,label,draw=()=>{})=>object(id,x-7,y-7,14,7,draw,{target:{x,y:y+17},label});
@@ -612,7 +722,7 @@ $('launchEpisode').onclick=()=>startEpisode($('episodeNumber').value,$('episodeR
 
 // The original final two chapters are staged across episodes 7–10, without new branch decisions.
 const F={time:0,frequency:107,hold:0,trail:[],followMap:null,flashTime:0,distort:0};
-const ENDINGS='vale-demo-endings-v1';
+const ENDINGS='vale-discovered-endings-v1';
 const finalNames={echoHome:'Casa deformada',echoStair:'Recuerdo / edificio',echoSignal:'Recuerdo / instalación',quietVale:'La habitación silenciosa',warmHome:'En casa',warmPassage:'El corredor',escapeHome:'La casa se deshace',escapeBuilding:'El edificio se deshace',escapeStation:'La instalación se deshace',realDoor:'La puerta real',transmitter:'El transmisor',returnHome:'La casa perfecta'};
 function resetFinal(){Object.assign(F,{time:0,frequency:107,hold:0,trail:[],followMap:null,flashTime:0,distort:0})}
 function branch(){return S.flags.branch6||'A'}
@@ -679,29 +789,8 @@ function endingArt(){const b=S.flags.ending;rect(0,0,480,320,b==='A'?'#a2ad9c':'
 function finalDraw(){if(S.mode==='play'&&S.flags.illusionThreat===S.map){if(!S.reduce&&F.distort>0){for(let i=0;i<6;i++)rect(35,95+i*29+Math.sin(S.time*9+i)*4,410,2,'#8ba0a63a')}}if(S.mode==='endingScene'){endingArt();return true}if(S.mode==='endingResult'){rect(0,0,480,320,'#07131e');glow(240,146,155,'#456e6633');text('FINAL DESCUBIERTO',240,69,'#9eb8a6',10,'center');text(endingTitle(S.flags.ending),240,129,'#d3dbc0',18,'center');text((S.flags.endingsFound||1)+' / 3 FINALES DESCUBIERTOS',240,183,'#a3bcaa',9,'center');text('EPISODIO 10 · FIN',240,219,'#7b9e9c',8,'center');text('E  REINTENTAR TRAMO FINAL · ESC  MENÚ',240,279,'#b3c8af',8,'center');return true}if(S.mode==='finalTune'){rect(0,25,480,276,'#081823');text('TRANSMISOR / SALIDA',240,43,'#c2d0b5',12,'center');rect(70,72,340,157,'#26444e');rect(83,85,314,52,'#102d3a');text(F.frequency.toFixed(2)+' MHz',240,101,'#cfdbb6',22,'center');for(let i=0;i<=10;i++)rect(90+i*30,149,1,12,'#8fa99b');rect(90+(F.frequency-107)*600,145,3,22,'#d8b98c');text(F.hold>0?'SEÑAL ENCONTRADA · MANTÉN':'OBJETIVO 107.3',240,175,'#b8c9ad',8,'center');rect(180,190,120,2,'#102d3a');rect(180,190,120*Math.min(1,F.hold/1.2),2,'#b8c9ad');ellipse(240,205,17,17,'#0d222f');ellipse(240,205,13,13,'#6e8d80');const angle=(-140+(F.frequency-107)*560)*Math.PI/180;line(240,205,240+Math.sin(angle)*11,205-Math.cos(angle)*11,'#d6c99f',2);text('A / D  SINTONIZAR · G  FLASH · T  PILA',240,235,'#b6cbb3',8,'center');text('CÁMARA '+Math.ceil(S.flags.cameraEnergy??100)+'% · PILAS '+S.spares+' · ESC VOLVER',240,259,'#b0c4b0',8,'center');if(X.enemy&&Math.hypot(S.x-X.enemy.x,S.y-X.enemy.y)<90)text('ESTÁ DETRÁS DE TI',240,280,'#d2a28e',9,'center');if(L.flash>0&&!S.reduce)rect(0,25,480,276,'#bfd7b944');return true}return false}
 function startFinalEpisode(chapter,route){const b=route==='B1'?'B1':route==='B2'||route==='B'?'B2':'A';startEpisode(6,b==='A'?'A':'B');S.transition=null;S.dialog=null;S.scene=null;S.mode='play';Object.assign(S.flags,{intro6:true,caseFiles:true,casePhotos:true,caseFrequency:true,moloFiles:true,decision6:b!=='A',copied:b==='B2',sixComplete:true,branch6:b});if(b==='B2')addItem('disk','Dispositivo con archivos');if(chapter>=8)Object.assign(S.flags,{introFinal7:true,false1:true,false2:true,warmGreeting:true,clockKnown:true,foodKnown:true,foodVisits:2,windowKnown:true,loopKnown:true,illusionKnown:true});if(chapter>=9)Object.assign(S.flags,{introFinal8:true,memoryConfirmed:b!=='B1',rescuedVale:b!=='B1',realClue:b==='B1'});if(chapter>=10)Object.assign(S.flags,{introFinal9:true,verified_escapeHome:true,verified_escapeBuilding:true,verified_escapeStation:true});S.spares=6;S.flags.cameraEnergy=100;startFinalChapter(chapter);return true}
 
-// Adaptación exclusiva de la demostración. El original de diez episodios no se modifica.
-const originalStartEpisode=startEpisode;
-let demoMap='power';
-function startDemo(map='power'){
- demoMap=map==='loop1'?'loop1':'power';
- originalStartEpisode(demoMap==='power'?4:5,'A');
- S.transition=null;S.scene=null;S.dialog=null;S.item=null;S.mode='play';S.paused=false;
- S.map=demoMap;S.x=demoMap==='power'?234:235;S.y=265;S.dir='up';S.spares=3;
- Object.assign(S.flags,{intro4:true,intro5:true,notebook:true,fuses:true,fusesLeft:demoMap==='power'?3:0});
- if(demoMap==='power')addItem('fuse','Tres fusibles para los generadores');
- X.enemy=null;repairPlayerPosition();setCheckpoint();
- if(demoMap==='loop1'){chaseReset();spawnHunter(110,137,42,4);}
- for(const id of ['intro','pause','chapterPicker','complete'])$(id).hidden=true;
- updateLocation();canvas.focus();notify(demoMap==='power'?'E: cables · A/D: elegir · E: girar. Llevas tres fusibles.':'Pulsa E en los dos generadores y ve a la salida · Mayús correr · G flash');
-}
-function demoMenu(){keys.clear();S.started=false;S.paused=false;S.mode='play';X.enemy=null;S.transition=null;for(const id of ['pause','chapterPicker','complete'])$(id).hidden=true;$('intro').hidden=false;}
-startEpisode=(n)=>startDemo(Number(n)===5?'loop1':'power');
-openEpisodePicker=demoMenu;
-// La compuerta aislada no pertenece a esta demostración del corredor.
-layouts.loop1.objects=layouts.loop1.objects.filter(o=>!['shutter','falseVoice','trailCard'].includes(o.id));
-// La muestra de energía se resuelve entera en esta sala: no hay puertas de ida y vuelta ambiguas.
-layouts.power.objects=layouts.power.objects.filter(o=>o.id!=='backPlant');
-layouts.power.objects.push(lateDesk('receiver',58,226,'Sintonizar el receptor','radio'),passage('leave4',405,265,'Terminar la demostración'));
+// Salas mejoradas de la demo integradas sin sustituir episodios, ramas ni finales.
+layouts.power.objects.push(lateDesk('receiver',58,226,'Sintonizar el receptor','radio'));
 const demoRechargeCamera=rechargeCamera;
 rechargeCamera=function(){if(L.trial&&S.map==='power'&&S.mode==='play'&&!S.paused&&Math.hypot(S.x-85,S.y-256)<90){S.flags.cameraEnergy=Math.max(25,S.flags.cameraEnergy||0);sound('battery');save();notify('Carga de emergencia del receptor · G: flash');return;}demoRechargeCamera();};
 const chase={gate:0,time:0,burst:false};
@@ -730,9 +819,9 @@ layouts.loop1.objects=[passage('routeLeft',74,122,'Abrir la salida'),chaseRelay(
 const chaseBackground=laterBackground;
 laterBackground=function(){if(S.map!=='loop1')return chaseBackground();baseRoom(38,105,404,180);doorDraw(59,54,false,chase.gate>=10);text('SALIDA',74,44,chase.gate>=10?'#b6d89a':'#c29576',8,'center');for(let x=142;x<340;x+=62){windowArt(x,57,36,32);}line(390,72,390,105,'#698179',3);text('DISTRIBUCIÓN ELÉCTRICA',329,45,'#8eaaa3',7,'center');for(let y=119;y<280;y+=20)line(39,y,441,y,'#233743',1);return true;};
 const chaseObjective=laterObjective;
-laterObjective=function(){if(S.map==='power'&&S.flags.gen1&&S.flags.gen2&&S.flags.gen3)return S.flags.flashLearned?'Prueba completada · Salida abajo a la derecha':L.trial?'G: flash · T: carga de emergencia junto al receptor':'Receptor abajo a la izquierda · Acércate y pulsa E';if(S.map!=='loop1')return chaseObjective();const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;if(count<2)return 'GENERADORES '+count+'/2 · Pulsa E frente a cada uno';return 'SALIDA ABIERTA · Esquina superior izquierda · E';};
+laterObjective=function(){if(S.map==='power'&&S.flags.gen1&&S.flags.gen2&&S.flags.gen3)return S.flags.flashLearned?'Vuelve por abajo a la izquierda y sigue la señal':L.trial?'G: flash · T: carga de emergencia junto al receptor':'Receptor abajo a la izquierda · Acércate y pulsa E';if(S.map!=='loop1')return chaseObjective();const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;if(count<2)return 'GENERADORES '+count+'/2 · Pulsa E frente a cada uno';return 'SALIDA ABIERTA · Esquina superior izquierda · E';};
 const chaseResume=resumeLater;
-resumeLater=function(){chaseResume();if(S.map==='loop1'){chaseReset();spawnHunter(110,137,42,4);}};
+resumeLater=function(){chaseResume();if(S.map==='loop1'){chaseReset();chase.gate=S.flags.chaseRelay1&&S.flags.chaseRelay2?10:0;}};
 const chaseUpdate=update;
 update=function(dt){
  if(S.started&&!S.paused&&!S.transition&&S.mode==='play'&&S.map==='loop1'){
@@ -749,21 +838,19 @@ const chaseDraw=laterDraw;
 laterDraw=function(){const result=chaseDraw();if(S.map==='power'&&S.mode==='play'){
  text('RECEPTOR',85,205,S.flags.gen1&&S.flags.gen2&&S.flags.gen3?'#d7d9af':'#93a59c',7,'center');
  if(S.flags.gen1&&S.flags.gen2&&S.flags.gen3&&!S.flags.flashLearned){frame(57,211,57,30,'#a1bc8b');text('E',85,249,'#d7d9af',8,'center');}
- if(S.flags.flashLearned)text('SALIDA ↓',405,253,'#bad0a1',7,'center');
+ if(S.flags.flashLearned)text('VOLVER ↓',73,263,'#bad0a1',7,'center');
  }if(S.map==='loop1'&&S.mode==='play'){
  rect(120,94,240,19,'#091722ee');const count=+!!S.flags.chaseRelay1+ +!!S.flags.chaseRelay2;
  text(count<2?'GENERADORES '+count+'/2 · PULSA E · 1: ARRIBA DERECHA / 2: ABAJO IZQUIERDA':'SALIDA ABIERTA · ARRIBA IZQUIERDA · E',240,100,'#cbd1af',6,'center');
  }return result;};
 const demoInspect=inspect;
 inspect=function(o){
+ if(o.id==='powerDoor'){go('power',138,265);return;}
+ if(S.map==='power'&&o.id==='backPlant'){go('plant',235,260);return;}
  if(S.map==='loop1'&&o.id.startsWith('chaseRelay')){if(S.flags[o.id]){notify('Generador encendido.');return;}S.flags[o.id]=true;sound('switch');if(S.flags.chaseRelay1&&S.flags.chaseRelay2){chase.gate=10;sound('door');notify('Salida abierta · Arriba a la izquierda · E para salir');}else notify('Generador encendido · Busca el otro (1 arriba derecha / 2 abajo izquierda)');save();return;}
  if(S.map==='loop1'&&['routeLeft','routeRight'].includes(o.id)){
   if(!S.flags.chaseRelay1||!S.flags.chaseRelay2){notify('Activa los dos generadores con E. Luego vuelve a esta puerta.');return;}
-  X.enemy=null;say([['','Has escapado de la entidad. Demostración completada.']],demoMenu);return;
- }
- if(['power','plant'].includes(S.map)&&o.id==='leave4'){
-  if(!S.flags.flashLearned){notify(objective());return;}
-  say([['','La señal está restaurada. Demostración completada.']],demoMenu);return;
+  demoInspect(o);return;
  }
  demoInspect(o);
  if(S.map==='power'&&['gen1','gen2','gen3'].includes(o.id)&&S.flags.gen1&&S.flags.gen2&&S.flags.gen3)notify('Energía restaurada · Receptor abajo a la izquierda · E para sintonizar');
@@ -794,10 +881,133 @@ moveHunter=function(en,dt){
  let remaining=(en.speed||38)*dt;
  while(remaining>0&&en.path?.length){const p=en.path[0],dx=p.x-en.x,dy=p.y-en.y,d=Math.hypot(dx,dy);if(d<.01){en.path.shift();continue;}const step=Math.min(d,remaining,1),x=en.x+dx/d*step,y=en.y+dy/d*step;if(!canMove(x,y)){en.path=[];en.pathClock=0;break;}en.x=x;en.y=y;remaining-=step;}
 };
-$('start').onclick=()=>startDemo('power');$('chooseEpisode').onclick=()=>startDemo('loop1');
-$('continue').hidden=true;$('restart').onclick=demoMenu;$('chooseEpisodePause').onclick=demoMenu;
-$('chooseEpisodePause').textContent='CAMBIAR MAPA';
-// Esta edición siempre abre el selector de mapas, con guardado independiente.
-demoMenu();
 
+const integratedReset=resetLater;
+resetLater=function(){integratedReset();chaseReset();};
+const integratedSpawn=spawnHunter;
+spawnHunter=function(x,y,speed,delay){if(S.map==='loop1'){x=110;y=137;speed=42;delay=4;}integratedSpawn(x,y,speed,delay);};
+
+const wardrobeKey='vale-vestuario-v1';
+const wardrobeCategories={head:'Sombreros',outfit:'Atuendos',feet:'Calzado'};
+const wardrobeItems=[
+  ['bowler','head','Sombrero de investigador',90],['cap','head','Gorra roja',60],['bald','head','Pelado',40],
+  ['parka','outfit','Túnica de la parca',160],['briefs','outfit','En cuero',80],['suit','outfit','Traje de noche',150],['dress','outfit','Vestido azul de Vale',180],
+  ['formal','feet','Zapatos de vestir',75],['barefoot','feet','Descalzo',35],['slides','feet','Ojotas amarillas',55],['redhigh','feet','Air Jordan 1 rojas',125]
+].map(([id,category,name,price])=>({id,category,name,price}));
+const coinPacks=[{coins:200,price:'0,99'},{coins:500,price:'1,99'},{coins:1200,price:'3,99'}];
+function readWardrobe(){
+  let data;
+  try{data=JSON.parse(localStorage.getItem(wardrobeKey));}catch{}
+  const owned=wardrobeItems.filter(item=>Array.isArray(data?.owned)&&data.owned.includes(item.id)).map(item=>item.id);
+  const equipped={};
+  for(const category of Object.keys(wardrobeCategories)){
+    const id=data?.equipped?.[category];
+    equipped[category]=wardrobeItems.some(item=>item.id===id&&item.category===category&&owned.includes(id))?id:'';
+  }
+  return {coins:Number.isSafeInteger(data?.coins)&&data.coins>=0?data.coins:0,owned,equipped};
+}
+let wardrobeProfile=readWardrobe(),shopOpen=false;
+let wardCategory='head',wardSelection='',wardFacing=0,wardPack=null,achievementTimer;
+const wardViews=['down','right','up','left'],wardViewNames=['Frente','Perfil derecho','Espalda','Perfil izquierdo'];
+function saveWardrobe(profile){
+  try{localStorage.setItem(wardrobeKey,JSON.stringify(profile));}
+  catch{$('wardStatus').textContent='No se pudo guardar. Vuelve a intentarlo.';return false;}
+  wardrobeProfile=profile;return true;
+}
+function wardButton(label,selected,activate,detail){
+  const button=document.createElement('button');button.type='button';button.textContent=label;
+  button.setAttribute('aria-pressed',String(selected));
+  if(detail){const small=document.createElement('small');small.textContent=detail;button.appendChild(small);}
+  button.onclick=activate;return button;
+}
+function renderWardPreview(){
+  const ctx=$('wardPreview').getContext('2d');ctx.imageSmoothingEnabled=false;
+  ctx.fillStyle='#13232c';ctx.fillRect(0,0,88,80);
+  ctx.fillStyle='#1e333c';ctx.fillRect(0,70,88,10);ctx.fillStyle='#0d1b24';ctx.fillRect(28,73,32,3);
+  paintMateo(ctx,44,74,2,wardViews[wardFacing],0,{...wardrobeProfile.equipped,[wardCategory]:wardSelection},S.flags.camera);
+  $('wardRotate').textContent=wardViewNames[wardFacing]+' ↻';
+}
+function renderWardrobe(){
+  $('wardBalance').textContent=wardrobeProfile.coins+' monedas';
+  const item=wardrobeItems.find(entry=>entry.id===wardSelection);
+  const tabs=$('wardTabs'),items=$('wardItems');tabs.replaceChildren();items.replaceChildren();
+  for(const [key,name] of Object.entries(wardrobeCategories)){
+    tabs.appendChild(wardButton(name,key===wardCategory,()=>{wardCategory=key;wardSelection=wardrobeProfile.equipped[key];$('wardStatus').textContent='';renderWardrobe();tabs.querySelector('[aria-pressed=true]').focus();}));
+  }
+  function pick(id){wardSelection=id;$('wardStatus').textContent='';renderWardrobe();items.querySelector('[aria-pressed=true]').focus();}
+  items.appendChild(wardButton('Original',!wardSelection,()=>pick(''),wardrobeProfile.equipped[wardCategory]?'Disponible':'Equipado'));
+  for(const entry of wardrobeItems.filter(entry=>entry.category===wardCategory)){
+    const detail=wardrobeProfile.equipped[wardCategory]===entry.id?'Equipado':wardrobeProfile.owned.includes(entry.id)?'En tu vestuario':entry.price+' monedas';
+    items.appendChild(wardButton(entry.name,entry.id===wardSelection,()=>pick(entry.id),detail));
+  }
+  const wearing=wardrobeProfile.equipped[wardCategory]===wardSelection;
+  $('wardAction').textContent=wearing?'Equipado':!item||wardrobeProfile.owned.includes(item.id)?'Equipar':'Comprar y equipar · '+item.price+' monedas';
+  $('wardAction').disabled=wearing;renderWardPreview();
+}
+function applyWardSelection(){
+  const profile=readWardrobe(),item=wardrobeItems.find(entry=>entry.id===wardSelection);
+  const buying=item&&!profile.owned.includes(item.id);
+  if(buying&&profile.coins<item.price){$('wardStatus').textContent='Te faltan '+(item.price-profile.coins)+' monedas.';return;}
+  if(buying){profile.coins-=item.price;profile.owned.push(item.id);}
+  profile.equipped[wardCategory]=wardSelection;
+  if(!saveWardrobe(profile))return;
+  $('wardStatus').textContent=buying?'Compra guardada. Mateo ya lleva esta prenda.':'Cambio guardado.';
+  if(buying&&item.id==='dress'){
+    $('wardAchievement').hidden=false;clearTimeout(achievementTimer);
+    achievementTimer=setTimeout(()=>{$('wardAchievement').hidden=true;},5500);
+  }
+  sound('switch');renderWardrobe();
+}
+function showWardCoins(){
+  wardPack=null;$('wardCatalog').hidden=true;$('wardCheckout').hidden=false;$('wardCoins').hidden=true;
+  $('wardStatus').textContent='';$('wardOrder').textContent='Elige un paquete.';$('wardPay').disabled=true;
+  const packs=$('wardPacks');packs.replaceChildren();
+  coinPacks.forEach(pack=>{
+    const button=wardButton(pack.coins+' monedas',false,()=>{
+      wardPack=pack;for(const child of packs.children)child.setAttribute('aria-pressed',String(child===button));
+      $('wardOrder').textContent=pack.coins+' monedas · Total simulado USD '+pack.price;$('wardPay').disabled=false;
+    },'USD '+pack.price);
+    packs.appendChild(button);
+  });packs.firstElementChild.focus();
+}
+function showWardCatalog(){
+  wardPack=null;$('wardCatalog').hidden=false;$('wardCheckout').hidden=true;$('wardCoins').hidden=false;renderWardrobe();
+}
+function payWardCoins(){
+  if(!wardPack)return;
+  const profile=readWardrobe(),amount=wardPack.coins;
+  profile.coins+=amount;if(!Number.isSafeInteger(profile.coins)||!saveWardrobe(profile))return;
+  showWardCatalog();$('wardStatus').textContent='Pago simulado completado. Recibiste '+amount+' monedas.';
+  $('wardCoins').focus();sound('battery');
+}
+function openWardrobe(){
+  if(!S.paused)return;
+  wardrobeProfile=readWardrobe();wardCategory='head';wardSelection=wardrobeProfile.equipped.head;wardFacing=0;
+  keys.clear();shopOpen=true;$('pause').hidden=true;$('wardrobe').hidden=false;$('wardStatus').textContent='';
+  showWardCatalog();$('wardBack').focus();
+}
+function closeWardrobe(){
+  keys.clear();wardPack=null;shopOpen=false;$('wardrobe').hidden=true;$('pause').hidden=false;$('openWardrobe').focus();
+}
+function handleWardKey(event){
+  if(event.key==='Escape'){
+    event.preventDefault();if(event.repeat)return;
+    if(!$('wardCheckout').hidden){showWardCatalog();$('wardCoins').focus();}else closeWardrobe();
+  }else if(event.key==='Tab'){
+    const buttons=[...$('wardrobe').querySelectorAll('button:not([disabled])')].filter(b=>b.offsetParent!==null);
+    const first=buttons[0],last=buttons[buttons.length-1];
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+    if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+  }
+}
+window.addEventListener('storage',event=>{
+  if(event.key!==wardrobeKey)return;
+  wardrobeProfile=readWardrobe();
+  if(shopOpen)renderWardrobe();
+});
+$('openWardrobe').onclick=openWardrobe;$('wardBack').onclick=closeWardrobe;
+$('wardRotate').onclick=()=>{wardFacing=(wardFacing+1)%4;renderWardPreview();};
+$('wardAction').onclick=applyWardSelection;$('wardCoins').onclick=showWardCoins;
+$('wardCancel').onclick=()=>{showWardCatalog();$('wardCoins').focus();};
+$('wardPay').onclick=payWardCoins;
 </script></body></html>
