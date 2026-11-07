@@ -5,6 +5,9 @@
 .stage:fullscreen{display:flex;align-items:center;justify-content:center;border:0;background:#000}.stage:fullscreen canvas{width:min(100vw,150vh);height:auto;max-height:100vh;object-fit:contain}
 
 #wardrobe[hidden],#wardrobe [hidden],#wardAchievement[hidden]{display:none!important}
+.stage-tools{gap:4px}
+.stage-tools #openWardrobe{color:#e4d5b6;border-color:#a58a62;white-space:nowrap}
+@media(max-width:580px){.stage-tools{padding:0 5px}.stage-tools button,.stage-tools #fullInGame{font-size:9px;padding:4px;min-width:0}}
 #wardrobe{position:absolute;inset:34px 0 0;z-index:12;overflow:auto;background:#0a151e;color:#e0e3d2;padding:clamp(8px,2.4vw,25px);font:13px Consolas,monospace;box-sizing:border-box}
 #wardrobe .ward-head,#wardrobe .ward-wallet{display:flex;align-items:center;justify-content:space-between;gap:10px}
 #wardrobe .ward-head{border-bottom:1px solid #465c62;padding-bottom:8px;margin-bottom:8px}
@@ -34,13 +37,13 @@ body{padding:12px}main{width:min(1080px,calc((100dvh - 170px)*1.5),100%)}header{
 .touch[hidden]{display:none!important}.touch:not([hidden]){display:flex}.touch{position:relative;z-index:9;margin:0;padding:8px;background:#101b24;width:100%;flex-shrink:0;gap:8px}.touch-actions{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;flex:1}.touch button{font-size:11px;min-width:32px;min-height:36px;padding:4px;touch-action:none}.touch small{width:100%;font-size:10px;color:#b8c8bd;text-align:center}.touch button[aria-pressed=true]{background:#5b736b}.stage-tools button{padding:4px 8px;font-size:11px}.stage:has(.touch:not([hidden])) .overlay{bottom:154px}.stage:fullscreen:has(.touch:not([hidden])) canvas{width:min(100vw,calc((100dvh - 195px)*1.5));max-height:calc(100dvh - 195px)}@media(max-width:600px){.touch-actions{grid-template-columns:repeat(4,minmax(0,1fr))}.touch small{font-size:8px}}@media(max-height:450px){.touch{padding:3px;gap:3px}.touch button{min-height:30px}.touch small{display:none}}
 </style></head><body><main>
 <header><div class="brand">LA SECCIÓN PROHIBIDA<strong>LA BÚSQUEDA DE VALE</strong></div><div class="edition">CAPÍTULOS 01–10<br>LA BÚSQUEDA CONTINÚA</div></header>
-<div class="stage" id="stage"><canvas id="game" width="480" height="320" tabindex="0" aria-label="La búsqueda de Vale. Flechas o WASD para caminar; E para interactuar; F linterna; rueda zoom; A/D sintonizar; Q equipo; Escape pausa."></canvas><div class="stage-tools"><button id="touchToggle" aria-controls="touchControls" aria-expanded="false">Controles táctiles</button><button id="fullInGame" aria-label="Pantalla completa" title="Pantalla completa (P)">⛶ Pantalla completa · P</button></div>
+<div class="stage" id="stage"><canvas id="game" width="480" height="320" tabindex="0" aria-label="La búsqueda de Vale. Flechas o WASD para caminar; E para interactuar; F linterna; rueda zoom; A/D sintonizar; Q equipo; Escape pausa."></canvas><div class="stage-tools"><button id="touchToggle" aria-controls="touchControls" aria-expanded="false">Controles táctiles</button><button id="openWardrobe" aria-label="Abrir tienda de Mateo" title="Tienda y vestuario">🛒 Tienda</button><button id="fullInGame" aria-label="Pantalla completa" title="Pantalla completa (P)">⛶ Pantalla completa · P</button></div>
 <div class="overlay" id="intro"><div><div class="eyebrow">LA SECCIÓN PROHIBIDA</div><h1>LA BÚSQUEDA<br>DE VALE</h1><div class="chapter-name">01–10 — LA BÚSQUEDA DE VALE</div><p>Es de noche. Vale no contesta.<br>Su habitación sigue cerrada.</p><button id="start">NUEVA PARTIDA</button><button id="continue" hidden>CONTINUAR</button><button id="chooseEpisode">ELEGIR EPISODIO</button><div class="sub">SONIDO RETRO · PUEDES SILENCIARLO CON EL BOTÓN<br>PROGRESO GUARDADO EN ESTE NAVEGADOR</div></div></div>
 <div class="overlay" id="chapterPicker" hidden role="dialog" aria-modal="true" aria-labelledby="pickerTitle"><div><div class="eyebrow">ACCESO LIBRE · VERSIÓN DE GRABACIÓN</div><h2 id="pickerTitle">ELEGIR EPISODIO</h2><label for="episodeNumber">Episodio</label><select id="episodeNumber"><option value="1">01 · La habitación de Vale</option><option value="2">02 · La última ruta</option><option value="3">03 · El edificio</option><option value="4">04 · La frecuencia / Bajo la frecuencia</option><option value="5">05 · No mires atrás</option><option value="6">06 · Los archivos</option><option value="7">07 · Los ecos de Vale</option><option value="8">08 · Vale</option><option value="9">09 · Déjala ir</option><option value="10">10 · La última salida</option></select><div id="episodeRouteGroup" hidden><label for="episodeRoute">Ruta elegida en la habitación 407</label><select id="episodeRoute"><option value="A">A · Salir por la escalera y escuchar a Molo</option><option id="routeB" value="B">B · Abrir la segunda puerta</option><option id="routeB1" value="B1" hidden disabled>B1 · Seguir a Vale sin los archivos</option><option id="routeB2" value="B2" hidden disabled>B2 · Conservar los archivos</option></select></div><p class="picker-help">Todos los episodios están disponibles. Empezarás con el equipo y las pistas anteriores preparados. Este inicio se guardará como tu partida actual.</p><button id="launchEpisode">JUGAR EPISODIO</button><button id="closeEpisodePicker">VOLVER</button></div></div>
-<div class="overlay" id="pause" hidden><div><div class="eyebrow">SEÑAL EN ESPERA</div><h1>PAUSA</h1><p>Flechas / WASD: caminar · Mayús: correr<br>E / Z / Enter: interactuar y avanzar<br>F: linterna · R: cambiar pila · C: visor · G: flash · T: pila de cámara<br>Rueda: zoom · A/D: radio / CCTV · Q: equipo<br>Esc: volver o pausar</p><button id="resume">VOLVER</button><button id="openWardrobe">TIENDA · VESTUARIO</button><button id="restart">MENÚ PRINCIPAL</button><button id="chooseEpisodePause">ELEGIR EPISODIO</button></div></div>
+<div class="overlay" id="pause" hidden><div><div class="eyebrow">SEÑAL EN ESPERA</div><h1>PAUSA</h1><p>Flechas / WASD: caminar · Mayús: correr<br>E / Z / Enter: interactuar y avanzar<br>F: linterna · R: cambiar pila · C: visor · G: flash · T: pila de cámara<br>Rueda: zoom · A/D: radio / CCTV · Q: equipo<br>Esc: volver o pausar</p><button id="resume">VOLVER</button><button id="restart">MENÚ PRINCIPAL</button><button id="chooseEpisodePause">ELEGIR EPISODIO</button></div></div>
 <div class="overlay" id="complete" hidden><div><div class="eyebrow">CAPÍTULO 01 COMPLETADO</div><h1>LA HABITACIÓN<br>DE VALE</h1><p>Tienes la cámara, la linterna, la radio<br>y las fotografías. Hay una ubicación en el mapa.</p><button id="explore">CONTINUAR AL NIVEL 2</button><button id="replay">REPETIR CAPÍTULO</button><div class="sub">LA ÚLTIMA RUTA · INVESTIGA LAS CALLES DE LIMA</div></div></div>
 <section id="wardrobe" hidden role="dialog" aria-modal="true" aria-labelledby="wardrobeTitle">
-  <header class="ward-head"><h2 id="wardrobeTitle">Vestuario de Mateo</h2><button id="wardBack" type="button">Volver a pausa</button></header>
+  <header class="ward-head"><h2 id="wardrobeTitle">Vestuario de Mateo</h2><button id="wardBack" type="button">Cerrar tienda</button></header>
   <div class="ward-wallet"><span>Saldo <strong id="wardBalance"></strong></span><button id="wardCoins">Comprar monedas</button></div>
   <div id="wardCatalog">
     <nav id="wardTabs" aria-label="Categorías"></nav>
@@ -119,6 +122,36 @@ const mateoHair = {
   up:['....jjjj....','..jjkkjjhh..','.hjjjjjjhhho','.hjjjjjhhhhh',
       '.hjjjjhhhhhh','.hjjjhhhhhhh','..hhhhhhjhh.','..hhhhhhjhh.','..hhhhhhhh..','...hhhhhh...']
 };
+function reaperMantle(r,side,back,stride){
+  // Una sola pieza de tela: el bajo cae alrededor de los tobillos y el pico oscila un píxel.
+  const felt='#14161d',shadow='#0b0d12',fold='#222530',edge='#353843';
+  const tip=(side?-2:back?1:0)+stride;
+  for(let y=-22;y<=-2;y++){
+    const spread=y< -17?1:Math.floor((y+17)/5)+1;
+    const radius=(side?4:6)+spread;
+    const taper=Math.max(0,y+7);
+    const left=Math.min(tip,-radius+taper*2),right=Math.max(tip,radius-1-taper*2);
+    r(left,y,right-left+1,1,shadow);
+    if(right-left>2)r(left+1,y,right-left-1,1,felt);
+    const ridge=tip-Math.floor((-2-y)/5);
+    if(ridge>left&&ridge<right)r(ridge,y,1,1,fold);
+    if(y< -7&&y> -19){r(left+1,y,1,1,fold);r(right-2,y,1,1,shadow);}
+  }
+  r(tip,-2,1,1,fold);
+  // Cuello de capucha plegada, con el cierre al frente.
+  r(side?-4:-7,-23,side?8:14,2,edge);r(side?-3:-5,-21,side?6:10,2,fold);
+  if(!side&&!back)r(-1,-20,2,1,'#68666a');
+}
+function investigatorHat(r,side,back){
+  const felt='#24252b',light='#43434a',band='#15161b';
+  r(-4,-36,8,1,light);r(-5,-35,10,2,felt);r(-6,-33,12,4,felt);
+  r(-4,-35,4,1,'#35353c');r(-5,-33,1,2,'#35353c');r(-6,-31,12,2,band);
+  // Ala de fieltro levantada en los extremos; deja libres los ojos a la altura -25.
+  const left=side?-10:-11,right=side?12:10;
+  r(left,-30,3,1,light);r(right-2,-30,3,1,'#33343a');
+  r(left,-29,right-left+1,1,'#35363d');r(left+1,-28,right-left-1,1,felt);
+  r(side?-4:-7,-27,14,1,back?'#32333a':band);
+}
 function paintMateo(ctx,x,y,scale,dir,step,look,hasCamera){
   ctx.save();ctx.translate(Math.round(x),Math.round(y));ctx.scale(dir==='left'?-scale:scale,scale);
   const side=dir==='left'||dir==='right', back=dir==='up';
@@ -127,8 +160,8 @@ function paintMateo(ctx,x,y,scale,dir,step,look,hasCamera){
   const pixels=rows=>rows.forEach((row,y)=>{for(let x=0;x<row.length;x++)if(row[x]!=='.')r(x-6,y-32,1,1,mateoPalette[row[x]]);});
   const skin='#c6a28a', shade='#a78373', outfit=look.outfit;
   const bare=outfit==='briefs', dress=outfit==='dress', coat=outfit==='parka', suit=outfit==='suit';
-  const cloth=bare?skin:dress?'#425c91':coat?'#30333c':suit?'#30363f':'#526369';
-  const seam=bare?shade:dress?'#293d62':coat?'#1c222d':suit?'#1c242e':'#344950';
+  const cloth=bare?skin:dress?'#425c91':coat?'#161820':suit?'#30363f':'#526369';
+  const seam=bare?shade:dress?'#293d62':coat?'#0c0e13':suit?'#1c242e':'#344950';
   const stride=step?Math.round(Math.sin(step*7)):0;
   function shoe(x,offset){
     const y=-3+offset;
@@ -150,10 +183,25 @@ function paintMateo(ctx,x,y,scale,dir,step,look,hasCamera){
   if(bare){
     if(!back){r(side?1:-4,-20,side?3:8,1,'#d5ae92');r(side?1:-4,-17,3,1,shade);if(!side)r(2,-17,3,1,shade);}
     r(bx,-12,bw,4,'#45515a');r(bx,-12,bw,1,'#9ea89f');
-  }else if(coat||dress){
-    r(bx-1,-15,bw+2,8,cloth);r(bx-2,-10,bw+4,4,cloth);r(bx-2,-7,bw+4,1,seam);
-    r(side?2:-2,-15,1,8,dress?'#6076a2':'#424651');
-    if(!back){r(-2,-22,4,2,dress?'#8e9ab7':'#191e28');}
+  }else if(coat){
+    reaperMantle(r,side,back,stride);
+  }else if(dress){
+    // Cintura ceñida y falda acampanada, con pliegues verticales.
+    r(bx+1,-15,bw-2,2,'#8495b7');
+    for(let hemY=-13;hemY<=-5;hemY++){
+      const flare=Math.floor((hemY+13)/2),half=(side?4:6)+flare;
+      r(-half,hemY,half*2,1,cloth);
+      r(-half,hemY,1,1,seam);r(half-1,hemY,1,1,seam);
+      r(-2-flare,hemY,1,1,'#637eab');r(2+flare,hemY,1,1,'#2c426f');
+    }
+    r(side?-7:-9,-5,side?14:18,1,'#8a9cbe');
+    // Escote en V sobre el torso plano de Mateo.
+    if(!back){
+      r(side?0:-4,-23,side?4:8,2,skin);
+      r(side?1:-3,-21,side?3:6,1,skin);
+      r(side?2:-2,-20,side?2:4,1,skin);
+      r(side?2:-1,-19,side?1:2,1,shade);
+    }
   }else if(suit&&!back){
     r(side?1:-3,-22,side?3:6,4,'#d7d5c9');r(side?2:-1,-21,2,7,'#a54641');r(side?2:-1,-15,2,1,'#783135');
   }else if(!suit&&!back){r(-3,-21,side?4:6,10,'#918976');}
@@ -170,7 +218,7 @@ function paintMateo(ctx,x,y,scale,dir,step,look,hasCamera){
   pixels(mateoFaces[view]);
   if(look.head!=='bald')pixels(mateoHair[view]);
   if(look.head==='bowler'){
-    r(-5,-35,10,2,'#32323a');r(-6,-33,12,5,'#24252c');r(-6,-30,12,2,'#49434a');r(-7,-28,14,1,'#24242c');
+    investigatorHat(r,side,back);
   }else if(look.head==='cap'){
     r(-4,-34,8,1,'#984b4b');r(-5,-33,10,2,'#a44d4a');r(-6,-31,12,3,'#aa4846');
     if(side)r(2,-29,7,2,'#973c40');else if(!back)r(-6,-29,12,2,'#8c393b');
@@ -180,6 +228,7 @@ function paintMateo(ctx,x,y,scale,dir,step,look,hasCamera){
 function mateo(x,y,scale=1,dir='down',step=0){
   paintMateo(c,x,y,scale,dir,step,wardrobeProfile.equipped,S.flags.camera);
 }
+
 
 function entity(x,y,scale=1,eyes=false){c.save();c.translate(Math.round(x),Math.round(y));c.scale(scale,scale);
  ellipse(0,1,13,3,'#03070c');poly([[-4,-48],[4,-48],[5,-41],[10,-36],[8,-18],[11,-3],[3,-2],[1,-16],[-2,-2],[-11,-3],[-8,-22],[-10,-36],[-5,-41]],'#05070d');
@@ -908,6 +957,7 @@ function readWardrobe(){
 }
 let wardrobeProfile=readWardrobe(),shopOpen=false;
 let wardCategory='head',wardSelection='',wardFacing=0,wardPack=null,achievementTimer;
+let wardrobeWasPaused=false;
 const wardViews=['down','right','up','left'],wardViewNames=['Frente','Perfil derecho','Espalda','Perfil izquierdo'];
 function saveWardrobe(profile){
   try{localStorage.setItem(wardrobeKey,JSON.stringify(profile));}
@@ -981,13 +1031,18 @@ function payWardCoins(){
   $('wardCoins').focus();sound('battery');
 }
 function openWardrobe(){
-  if(!S.paused)return;
+  if(shopOpen)return;
+  wardrobeWasPaused=S.paused;
+  S.paused=true;
   wardrobeProfile=readWardrobe();wardCategory='head';wardSelection=wardrobeProfile.equipped.head;wardFacing=0;
   keys.clear();shopOpen=true;$('pause').hidden=true;$('wardrobe').hidden=false;$('wardStatus').textContent='';
   showWardCatalog();$('wardBack').focus();
 }
 function closeWardrobe(){
-  keys.clear();wardPack=null;shopOpen=false;$('wardrobe').hidden=true;$('pause').hidden=false;$('openWardrobe').focus();
+  keys.clear();wardPack=null;shopOpen=false;$('wardrobe').hidden=true;
+  S.paused=wardrobeWasPaused;
+  $('pause').hidden=!S.paused||!S.started;
+  if(S.started&&!S.paused)canvas.focus();else $('openWardrobe').focus();
 }
 function handleWardKey(event){
   if(event.key==='Escape'){
